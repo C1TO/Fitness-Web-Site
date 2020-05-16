@@ -1,7 +1,6 @@
 package dao;
 
 import entity.BilgiIslem;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -45,11 +44,12 @@ public class BilgiIslemDAO extends SuperDAO {
         }
     }
 
-    public List<BilgiIslem> findAll() {
+    public List<BilgiIslem> findAll(int page, int pageSize) {
         List<BilgiIslem> bilgiIslemlist = new ArrayList();
-
+        int start = (page - 1) * pageSize;
         try {
-            pst = this.getConnection().prepareStatement("select * from bilgi_islem");
+            pst = this.getConnection().prepareStatement("select * from bilgi_islem order by bilgi_id asc limit " + start + " , " + pageSize);
+            
 
             rs = pst.executeQuery();
             while (rs.next()) {
@@ -99,7 +99,6 @@ public class BilgiIslemDAO extends SuperDAO {
         try {
             pst = this.getConnection().prepareStatement("update bilgi_islem set  egitim_id=?,uye_id=?,baslangic_tarih=?,bitis_tarih=? where bilgi_id=?");
 
-            
             pst.setInt(1, bilgiIslem.getEgitim().getEgitim_id());
             pst.setInt(2, bilgiIslem.getUye().getUye_id());
             pst.setString(3, bilgiIslem.getBaslangic_tarihi());
@@ -135,6 +134,21 @@ public class BilgiIslemDAO extends SuperDAO {
 
     public void setUyedao(UyeDAO uyedao) {
         this.uyedao = uyedao;
+    }
+
+    public int count() {
+        int count = 0;
+
+        try {
+            PreparedStatement pst = this.getConnection().prepareStatement("select count(bilgi_id) as bilgi_count from bilgi_islem");
+            ResultSet rs = pst.executeQuery();
+            rs.next();
+            count = rs.getInt("bilgi_count");
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return count;
     }
 
 }

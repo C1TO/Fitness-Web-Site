@@ -21,6 +21,53 @@ public class AlinanEgitimController implements Serializable {
     @Inject
     private EgitimController egitimController;
 
+    private int page = 1;
+    private int pageSize = 6;
+    private int pageCount;
+
+    public void ileri() {
+        if (this.page == this.getPageCount()) {
+            this.page = 1;
+        } else {
+            this.page++;
+        }
+        this.clearForm();
+    }
+
+    public void geri() {
+        if (this.page == 1) {
+            this.page = this.getPageCount();
+        } else {
+            this.page--;
+        }
+        this.clearForm();
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public int getPageCount() {
+        this.pageCount = (int) Math.ceil(this.getAlinandao().count() / (double) pageSize);
+        return pageCount;
+    }
+
+    public void setPageCount(int pageCount) {
+        this.pageCount = pageCount;
+    }
+
     public void updateForm(AlinanEgitim alinanEgitim) {
         this.alinanEgitim = alinanEgitim;
     }

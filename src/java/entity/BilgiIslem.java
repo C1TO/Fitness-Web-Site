@@ -1,7 +1,6 @@
 package entity;
 
-import java.sql.Date;
-import java.sql.Timestamp;
+import java.util.Objects;
 
 public class BilgiIslem {
 
@@ -20,9 +19,6 @@ public class BilgiIslem {
         this.baslangic_tarihi = baslangic_tarihi;
         this.bitis_tarihi = bitis_tarihi;
     }
-
-    
-   
 
     public int getBilgiıslem_id() {
         return bilgiıslem_id;
@@ -48,14 +44,10 @@ public class BilgiIslem {
         this.bitis_tarihi = bitis_tarihi;
     }
 
-  
-
-   
-
     public Uye getUye() {
         if (this.uye == null) {
             this.uye = new Uye();
-            
+
         }
         return uye;
     }
@@ -67,7 +59,7 @@ public class BilgiIslem {
     public Egitim getEgitim() {
         if (this.egitim == null) {
             this.egitim = new Egitim();
-            
+
         }
         return egitim;
     }
@@ -78,16 +70,17 @@ public class BilgiIslem {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 83 * hash + this.bilgiıslem_id;
+        int hash = 3;
+        hash = 29 * hash + this.bilgiıslem_id;
+        hash = 29 * hash + Objects.hashCode(this.baslangic_tarihi);
+        hash = 29 * hash + Objects.hashCode(this.bitis_tarihi);
+        hash = 29 * hash + Objects.hashCode(this.uye);
+        hash = 29 * hash + Objects.hashCode(this.egitim);
         return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
         if (obj == null) {
             return false;
         }
@@ -96,6 +89,18 @@ public class BilgiIslem {
         }
         final BilgiIslem other = (BilgiIslem) obj;
         if (this.bilgiıslem_id != other.bilgiıslem_id) {
+            return false;
+        }
+        if (!Objects.equals(this.baslangic_tarihi, other.baslangic_tarihi)) {
+            return false;
+        }
+        if (!Objects.equals(this.bitis_tarihi, other.bitis_tarihi)) {
+            return false;
+        }
+        if (!Objects.equals(this.uye, other.uye)) {
+            return false;
+        }
+        if (!Objects.equals(this.egitim, other.egitim)) {
             return false;
         }
         return true;

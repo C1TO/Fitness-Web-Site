@@ -8,7 +8,8 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import javax.inject.Inject;
 import javax.inject.Named;
-@ManagedBean (name="date")
+
+@ManagedBean(name = "date")
 @Named
 @SessionScoped
 public class BilgiIslemController implements Serializable {
@@ -21,6 +22,50 @@ public class BilgiIslemController implements Serializable {
     private UyeController uyeController;
     @Inject
     private EgitimController egitimController;
+    @Inject
+    private AlinanEgitimController alinanController;
+
+    private int page = 1;
+    private int pageSize = 6;
+    private int pageCount;
+
+    public void ileri(){
+        if (this.page ==this.getPageCount()) 
+            this.page=1;
+        else
+        this.page++;
+    }
+    public void geri(){
+        if (this.page==1) 
+            this.page=this.getPageCount();
+        else
+        this.page--;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public int getPageCount() {
+        this.pageCount = (int) Math.ceil(this.getBilgiıslem_dao().count() / (double) pageSize);
+        return pageCount;
+    }
+
+    public void setPageCount(int pageCount) {
+        this.pageCount = pageCount;
+    }
 
     public void updateForm(BilgiIslem bilgiıslem) {
         this.bilgiıslem = bilgiıslem;
@@ -46,7 +91,7 @@ public class BilgiIslemController implements Serializable {
     }
 
     public List<BilgiIslem> getBilgiıslem_list() {
-        this.bilgiıslem_list = this.getBilgiıslem_dao().findAll();
+        this.bilgiıslem_list = this.getBilgiıslem_dao().findAll(page, pageSize);
         return bilgiıslem_list;
     }
 
@@ -100,6 +145,17 @@ public class BilgiIslemController implements Serializable {
 
     public void setEgitimController(EgitimController egitimController) {
         this.egitimController = egitimController;
+    }
+
+    public AlinanEgitimController getAlinanController() {
+        if (this.alinanController == null) {
+            this.alinanController = new AlinanEgitimController();
+        }
+        return alinanController;
+    }
+
+    public void setAlinanController(AlinanEgitimController alinanController) {
+        this.alinanController = alinanController;
     }
 
 }

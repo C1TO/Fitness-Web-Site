@@ -1,8 +1,6 @@
 package dao;
 
 import entity.AlinanEgitim;
-import entity.Egitim;
-import entity.Uye;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -99,6 +97,21 @@ public class AlinanEgitimDAO extends SuperDAO {
         } catch (SQLException ex) {
             System.out.println("AlinanEgitimDAO HATA(Update):" + ex.getMessage());
         }
+    }
+
+    public int count() {
+        int count = 0;
+
+        try {
+            PreparedStatement pst = this.getConnection().prepareStatement("select count(alinan_id) as alinan_count from alinan_egitim");
+            ResultSet rs = pst.executeQuery();
+            rs.next();
+            count = rs.getInt("alinan_count");
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return count;
     }
 
     public EgitimDAO getEgitimdao() {

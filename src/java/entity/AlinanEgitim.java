@@ -11,7 +11,7 @@ public class AlinanEgitim {
 
     public AlinanEgitim(int alinan_id) {
         this.alinan_id = alinan_id;
-    
+
     }
 
     public int getAlinan_id() {
@@ -25,7 +25,7 @@ public class AlinanEgitim {
     public Uye getUye() {
         if (this.uye == null) {
             this.uye = new Uye();
-            
+
         }
         return uye;
     }
@@ -35,8 +35,9 @@ public class AlinanEgitim {
     }
 
     public Egitim getEgitim() {
-        if(this.egitim == null)
+        if (this.egitim == null) {
             this.egitim = new Egitim();
+        }
         return egitim;
     }
 

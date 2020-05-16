@@ -13,7 +13,7 @@ public class DBConnection {
 
         try {
             Class.forName("org.mariadb.jdbc.Driver").newInstance();
-            c = DriverManager.getConnection("jdbc:mariadb://localhost:3306/fitness?user=root&password=732284Ata");
+            c = DriverManager.getConnection("jdbc:mariadb://localhost:3306/salon?user=root&password=123");
             System.out.println("Connected to the MariDB server successfully.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());

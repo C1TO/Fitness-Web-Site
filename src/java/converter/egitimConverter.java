@@ -24,8 +24,8 @@ public class egitimConverter implements Converter {
     }
 
     public EgitimDAO getEgitimdao() {
-        if(this.egitimdao==null){
-            this.egitimdao=new EgitimDAO();
+        if (this.egitimdao == null) {
+            this.egitimdao = new EgitimDAO();
         }
         return egitimdao;
     }

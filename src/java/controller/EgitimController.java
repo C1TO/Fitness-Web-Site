@@ -15,10 +15,50 @@ public class EgitimController implements Serializable {
     private List<Egitim> egitim_list;
     private EgitimDAO egitim_dao;
     private Egitim egitim;
+    private String bul = "";
 
-    
-    //Egitmen controller sınıfı eklenecek
-    
+    private int page = 1;
+    private int pageSize = 6;
+    private int pageCount;
+
+     public void ileri(){
+        if (this.page ==this.getPageCount()) 
+            this.page=1;
+        else
+        this.page++;
+    }
+    public void geri(){
+        if (this.page==1) 
+            this.page=this.getPageCount();
+        else
+        this.page--;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public int getPageCount() {
+        this.pageCount = (int) Math.ceil(this.getEgitim_dao().count() / (double) pageSize);
+        return pageCount;
+    }
+
+    public void setPageCount(int pageCount) {
+        this.pageCount = pageCount;
+    }
+
     @Inject
     private EgitmenController egitmenController;
 
@@ -45,7 +85,6 @@ public class EgitimController implements Serializable {
 
     public void delete() {
         this.getEgitim_dao().delete(this.egitim);
-        this.clearForm();
     }
 
     public void update() {
@@ -53,8 +92,21 @@ public class EgitimController implements Serializable {
         this.clearForm();
     }
 
+    public String getBul() {
+        return bul;
+    }
+
+    public void setBul(String bul) {
+        this.bul = bul;
+    }
+
     public List<Egitim> getEgitim_list() {
-        this.egitim_list = this.getEgitim_dao().findAll();
+        this.egitim_list = this.getEgitim_dao().findAll(this.bul, page, pageSize);
+        return egitim_list;
+    }
+
+    public List<Egitim> getElist() {
+        this.egitim_list = getEgitim_dao().findAll();
         return egitim_list;
     }
 

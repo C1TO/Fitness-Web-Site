@@ -1,5 +1,7 @@
 package entity;
 
+import java.util.Objects;
+
 public class Egitim {
 
     private int egitim_id;
@@ -7,7 +9,6 @@ public class Egitim {
     private String egitim_adi;
     private String egitim_ucret;
 
-    //Egitmen sınıfı eklenecek
     private Egitmen egitmen;
 
     public Egitim() {
@@ -53,8 +54,7 @@ public class Egitim {
     }
 
     public Egitmen getEgitmen() {
-        if(egitmen == null)
-        {
+        if (egitmen == null) {
             egitmen = new Egitmen();
         }
         return egitmen;
@@ -66,8 +66,12 @@ public class Egitim {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 59 * hash + this.egitim_id;
+        int hash = 3;
+        hash = 97 * hash + this.egitim_id;
+        hash = 97 * hash + Objects.hashCode(this.egitim_icerik);
+        hash = 97 * hash + Objects.hashCode(this.egitim_adi);
+        hash = 97 * hash + Objects.hashCode(this.egitim_ucret);
+        hash = 97 * hash + Objects.hashCode(this.egitmen);
         return hash;
     }
 
@@ -81,6 +85,18 @@ public class Egitim {
         }
         final Egitim other = (Egitim) obj;
         if (this.egitim_id != other.egitim_id) {
+            return false;
+        }
+        if (!Objects.equals(this.egitim_icerik, other.egitim_icerik)) {
+            return false;
+        }
+        if (!Objects.equals(this.egitim_adi, other.egitim_adi)) {
+            return false;
+        }
+        if (!Objects.equals(this.egitim_ucret, other.egitim_ucret)) {
+            return false;
+        }
+        if (!Objects.equals(this.egitmen, other.egitmen)) {
             return false;
         }
         return true;

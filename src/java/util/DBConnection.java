@@ -6,12 +6,15 @@ import java.sql.SQLException;
 
 public class DBConnection {
 
+
+
     public Connection connect() {
         Connection c = null;
 
         try {
-            Class.forName("org.postgresql.Driver").newInstance();
-            c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/fitness", "postgres", "123");
+            Class.forName("org.mariadb.jdbc.Driver").newInstance();
+            c = DriverManager.getConnection("jdbc:mariadb://localhost:3306/fitness?user=root&password=732284Ata");
+            System.out.println("Connected to the MariDB server successfully.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {

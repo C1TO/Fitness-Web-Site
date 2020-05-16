@@ -17,7 +17,7 @@ public class ProgramListesi {
         this.hareket_adi = hareket_adi;
         this.tekrar_sayisi = tekrar_sayisi;
         this.hareket_bolgesi = hareket_bolgesi;
-     
+
     }
 
     public int getProgram_id() {
@@ -53,8 +53,7 @@ public class ProgramListesi {
     }
 
     public Egitim getEgitim() {
-        if(this.egitim == null)
-        {
+        if (this.egitim == null) {
             this.egitim = new Egitim();
         }
         return egitim;
@@ -64,37 +63,4 @@ public class ProgramListesi {
         this.egitim = egitim;
     }
 
- 
-
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 13 * hash + this.program_id;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ProgramListesi other = (ProgramListesi) obj;
-        if (this.program_id != other.program_id) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "ProgramListesi{" + "program_id=" + program_id + ", hareket_adi=" + hareket_adi + ", tekrar_sayisi=" + tekrar_sayisi + ", hareket_bolgesi=" + hareket_bolgesi + ", egitim=" + egitim + '}';
-    }
-
- 
 }

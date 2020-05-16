@@ -13,6 +13,7 @@ public class ProgramListesiDAO extends SuperDAO {
     ResultSet rs = null;
 
     EgitimDAO egitimdao;
+    UyeDAO uyedao;
 
     public void insert(ProgramListesi programListesi) {
 
@@ -43,23 +44,25 @@ public class ProgramListesiDAO extends SuperDAO {
         }
     }
 
-    public List<ProgramListesi> findAll() {
+    public List<ProgramListesi> findAll(String deger, int page, int pageSize) {
         List<ProgramListesi> programListesi = new ArrayList();
+        int start = (page - 1) * pageSize;
 
         try {
-            pst = this.getConnection().prepareStatement("select * from program_listesi");
+            pst = this.getConnection().prepareStatement("select * from program_listesi where  hareket_adi like ? order by por_liste_id asc limit " + start + " , " + pageSize);
+            pst.setString(1, "%" + deger + "%");
+
             rs = pst.executeQuery();
             while (rs.next()) {
                 ProgramListesi temp = new ProgramListesi();
-
                 temp.setProgram_id(rs.getInt("por_liste_id"));
                 temp.setHareket_adi(rs.getString("hareket_adi"));
                 temp.setTekrar_sayisi(rs.getString("tekrar_sayisi"));
                 temp.setHareket_bolgesi(rs.getString("hareket_bolgesi"));
                 temp.setEgitim(this.getEgitimdao().find(rs.getInt("egitim_id")));
-
                 programListesi.add(temp);
             }
+
             return programListesi;
         } catch (SQLException ex) {
             System.out.println(" ProgramListesiDAO HATA(FindAll): " + ex.getMessage());
@@ -76,10 +79,8 @@ public class ProgramListesiDAO extends SuperDAO {
             rs = pst.executeQuery();
 
             rs.next();
-
             programListesi = new ProgramListesi();
-
-            programListesi.setProgram_id(rs.getInt("program_id"));
+            programListesi.setProgram_id(rs.getInt("por_liste_id"));
             programListesi.setHareket_adi(rs.getString("hareket_adi"));
             programListesi.setTekrar_sayisi(rs.getString("tekrar_sayisi"));
             programListesi.setHareket_bolgesi(rs.getString("hareket_bolgesi"));
@@ -88,7 +89,6 @@ public class ProgramListesiDAO extends SuperDAO {
         } catch (SQLException ex) {
             System.out.println(" ProgramListesiDAO HATA(Find): " + ex.getMessage());
         }
-
         return programListesi;
     }
 
@@ -101,7 +101,7 @@ public class ProgramListesiDAO extends SuperDAO {
             pst.setString(2, programListesi.getTekrar_sayisi());
             pst.setString(3, programListesi.getHareket_bolgesi());
             pst.setInt(4, programListesi.getEgitim().getEgitim_id());
-            
+
             pst.setInt(5, programListesi.getProgram_id());
             pst.executeUpdate();
             pst.close();
@@ -112,8 +112,7 @@ public class ProgramListesiDAO extends SuperDAO {
     }
 
     public EgitimDAO getEgitimdao() {
-        if(this.egitimdao == null)
-        {
+        if (this.egitimdao == null) {
             this.egitimdao = new EgitimDAO();
         }
         return egitimdao;
@@ -123,6 +122,30 @@ public class ProgramListesiDAO extends SuperDAO {
         this.egitimdao = egitimdao;
     }
 
-    
+    public int count() {
+        int count = 0;
+
+        try {
+            pst = this.getConnection().prepareStatement("select count(por_liste_id) as por_count from program_listesi");
+            rs = pst.executeQuery();
+            rs.next();
+            count = rs.getInt("por_count");
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return count;
+    }
+
+    public UyeDAO getUyedao() {
+        if (this.uyedao == null) {
+            this.uyedao = new UyeDAO();
+        }
+        return uyedao;
+    }
+
+    public void setUyedao(UyeDAO uyedao) {
+        this.uyedao = uyedao;
+    }
 
 }

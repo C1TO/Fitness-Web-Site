@@ -12,7 +12,6 @@ public class EgitimDAO extends SuperDAO {
     PreparedStatement pst = null;
     ResultSet rs = null;
 
-    //Egitmen dao sınıfını düzlenenecek 
     EgitmenDAO egitmendao;
 
     public void insert(Egitim egitim) {
@@ -44,11 +43,12 @@ public class EgitimDAO extends SuperDAO {
         }
     }
 
-    public List<Egitim> findAll() {
+    public List<Egitim> findAll(String deger, int page, int pageSize) {
         List<Egitim> egitimlist = new ArrayList();
-
+        int start = (page - 1) * pageSize;
         try {
-            pst = this.getConnection().prepareStatement("select * from egitimler");
+            pst = this.getConnection().prepareStatement("select * from egitimler where egitim_adi like ? order by egitim_id asc limit " + start + " , " + pageSize);
+            pst.setString(1, "%" + deger + "%");  
 
             rs = pst.executeQuery();
             while (rs.next()) {
@@ -70,25 +70,45 @@ public class EgitimDAO extends SuperDAO {
 
     }
 
+    public List<Egitim> getAlinanEgitim(int uye_id) {
+        List<Egitim> egitimalinan = new ArrayList<>();
+
+        try {
+            PreparedStatement pst1 = this.getConnection().prepareStatement("select * from alinan_egitim where uye_id=?");
+            pst1.setInt(1, uye_id);
+            ResultSet rs1 = pst1.executeQuery();
+
+            while (rs1.next()) {
+                egitimalinan.add(this.find(rs1.getInt("egitim_id")));
+
+            }
+
+        } catch (Exception ex) {
+            System.out.println("EgitimDAO HATA(Update):" + ex.getMessage());
+        }
+
+        return egitimalinan;
+    }
+
     public Egitim find(int id) {
         Egitim egitim = null;
         try {
             pst = this.getConnection().prepareStatement("select * from egitimler where egitim_id = ?");
             pst.setInt(1, id);
             rs = pst.executeQuery();
-            rs.next();
 
-            egitim = new Egitim();
-            egitim.setEgitim_id(rs.getInt("egitim_id"));
-            egitim.setEgitim_icerik(rs.getString("egitim_icerik"));
-            egitim.setEgitim_adi(rs.getString("egitim_adi"));
-            egitim.setEgitim_ucret(rs.getString("egitim_ucret"));
-            egitim.setEgitmen(this.getEgitmendao().find(rs.getInt("egitmen_id")));
+            while (rs.next()) {
+                egitim = new Egitim();
+                egitim.setEgitim_id(rs.getInt("egitim_id"));
+                egitim.setEgitim_icerik(rs.getString("egitim_icerik"));
+                egitim.setEgitim_adi(rs.getString("egitim_adi"));
+                egitim.setEgitim_ucret(rs.getString("egitim_ucret"));
+                egitim.setEgitmen(this.getEgitmendao().find(rs.getInt("egitmen_id")));
+            }
         } catch (SQLException ex) {
 
             System.out.println("EgitimDAO HATA(Find):" + ex.getMessage());;
         }
-
         return egitim;
     }
 
@@ -105,8 +125,33 @@ public class EgitimDAO extends SuperDAO {
             pst.executeUpdate();
             pst.close();
         } catch (SQLException ex) {
-            System.out.println("EgitimDAO HATA(Update):" + ex.getMessage());;
+            System.out.println("EgitimDAO HATA(Update):" + ex.getMessage());
         }
+    }
+
+    public List<Egitim> findAll() {
+        List<Egitim> Elist = new ArrayList<>();
+
+        try {
+            pst = this.getConnection().prepareStatement("select * from egitimler");
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                Egitim temp = new Egitim();
+
+                temp.setEgitim_id(rs.getInt("egitim_id"));
+                temp.setEgitim_icerik(rs.getString("egitim_icerik"));
+                temp.setEgitim_adi(rs.getString("egitim_adi"));
+                temp.setEgitim_ucret(rs.getString("egitim_ucret"));
+                temp.setEgitmen(this.getEgitmendao().find(rs.getInt("egitmen_id")));
+
+                Elist.add(temp);
+            }
+        } catch (SQLException ex) {
+
+            System.out.println("EgitimDAO HATA(FİNDALL):" + ex.getMessage());
+        }
+        return Elist;
     }
 
     public EgitmenDAO getEgitmendao() {
@@ -118,6 +163,45 @@ public class EgitimDAO extends SuperDAO {
 
     public void setEgitmendao(EgitmenDAO egitmendao) {
         this.egitmendao = egitmendao;
+    }
+
+    public int count() {
+        int count = 0;
+
+        try {
+            PreparedStatement pst = this.getConnection().prepareStatement("select count(egitim_id) as egitim_count from egitimler");
+            ResultSet rs = pst.executeQuery();
+            rs.next();
+            count = rs.getInt("egitim_count");
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return count;
+    }
+
+    public List<Egitim> find(int page, int pageSize) {
+        List<Egitim> egitimlist = new ArrayList();
+        int start = (page - 1) * pageSize;
+        try {
+            pst = this.getConnection().prepareStatement("select * from egitimler order by egitim_id asc OFFSET ? limit ? ");
+            pst.setInt(1, start);
+            pst.setInt(2, pageSize);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                Egitim temp = new Egitim();
+                temp.setEgitim_id(rs.getInt("egitim_id"));
+                temp.setEgitim_icerik(rs.getString("egitim_icerik"));
+                temp.setEgitim_adi(rs.getString("egitim_adi"));
+                temp.setEgitim_ucret(rs.getString("egitim_ucret"));
+                temp.setEgitmen(this.getEgitmendao().find(rs.getInt("egitmen_id")));
+                egitimlist.add(temp);
+            }
+            return egitimlist;
+        } catch (SQLException ex) {
+            System.out.println("EgitimDAO HATA(FindAll):" + ex.getMessage());
+            return null;
+        }
     }
 
 }

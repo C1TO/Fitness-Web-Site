@@ -1,5 +1,7 @@
 package entity;
 
+import java.util.Objects;
+
 public class DiyetListesi {
 
     private int diyet_id;
@@ -17,7 +19,7 @@ public class DiyetListesi {
         this.yemek_isim = yemek_isim;
         this.gramaj = gramaj;
         this.saat_araligi = saat_araligi;
-      
+
     }
 
     public int getDiyet_id() {
@@ -55,7 +57,7 @@ public class DiyetListesi {
     public Egitim getEgitim() {
         if (this.egitim == null) {
             this.egitim = new Egitim();
-            
+
         }
         return egitim;
     }
@@ -64,19 +66,19 @@ public class DiyetListesi {
         this.egitim = egitim;
     }
 
-    
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 61 * hash + this.diyet_id;
+        int hash = 5;
+        hash = 83 * hash + this.diyet_id;
+        hash = 83 * hash + Objects.hashCode(this.yemek_isim);
+        hash = 83 * hash + Objects.hashCode(this.gramaj);
+        hash = 83 * hash + Objects.hashCode(this.saat_araligi);
+        hash = 83 * hash + Objects.hashCode(this.egitim);
         return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
         if (obj == null) {
             return false;
         }
@@ -87,6 +89,18 @@ public class DiyetListesi {
         if (this.diyet_id != other.diyet_id) {
             return false;
         }
+        if (!Objects.equals(this.yemek_isim, other.yemek_isim)) {
+            return false;
+        }
+        if (!Objects.equals(this.gramaj, other.gramaj)) {
+            return false;
+        }
+        if (!Objects.equals(this.saat_araligi, other.saat_araligi)) {
+            return false;
+        }
+        if (!Objects.equals(this.egitim, other.egitim)) {
+            return false;
+        }
         return true;
     }
 
@@ -95,5 +109,4 @@ public class DiyetListesi {
         return "DiyetListesi{" + "diyet_id=" + diyet_id + ", yemek_isim=" + yemek_isim + ", gramaj=" + gramaj + ", saat_araligi=" + saat_araligi + ", egitim=" + egitim + '}';
     }
 
-   
 }

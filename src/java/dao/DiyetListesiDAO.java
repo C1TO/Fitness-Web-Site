@@ -13,11 +13,12 @@ public class DiyetListesiDAO extends SuperDAO {
     ResultSet rs = null;
 
     EgitimDAO egitimdao;
+    UyeDAO uyedao;
 
     public void insert(DiyetListesi diyetListesi) {
 
         try {
-            pst = this.getConnection().prepareStatement("insert into diyet_listesi (gramaj,saat_araligi,yemek_ismi, egitim_id) values(?,?,?,?)");
+            pst = this.getConnection().prepareStatement("insert into diyet_listesi (gramaj,saat_araligi,yemek_ismi,egitim_id) values(?,?,?,?)");
             pst.setString(1, diyetListesi.getGramaj());
             pst.setString(2, diyetListesi.getSaat_araligi());
             pst.setString(3, diyetListesi.getYemek_isim());
@@ -43,20 +44,23 @@ public class DiyetListesiDAO extends SuperDAO {
         }
     }
 
-    public List<DiyetListesi> findAll() {
+    public List<DiyetListesi> findAll(String deger, int page, int pageSize) {
         List<DiyetListesi> diyetListesi = new ArrayList();
+        int start = (page - 1) * pageSize;
 
         try {
-            pst = this.getConnection().prepareStatement("select * from diyet_listesi");
+            pst = this.getConnection().prepareStatement("select * from diyet_listesi where yemek_ismi like ? order by diy_listesi_id asc limit " + start + " , " + pageSize);
+            pst.setString(1, "%" + deger + "%");
+
             rs = pst.executeQuery();
 
             while (rs.next()) {
                 DiyetListesi temp = new DiyetListesi();
 
                 temp.setDiyet_id(rs.getInt("diy_listesi_id"));
-                temp.setYemek_isim(rs.getString("gramaj"));
-                temp.setGramaj(rs.getString("saat_araligi"));
-                temp.setSaat_araligi(rs.getString("yemek_ismi"));
+                temp.setYemek_isim(rs.getString("yemek_ismi"));
+                temp.setGramaj(rs.getString("gramaj"));
+                temp.setSaat_araligi(rs.getString("saat_araligi"));
                 temp.setEgitim(this.getEgitimdao().find(rs.getInt("egitim_id")));
                 diyetListesi.add(temp);
             }
@@ -78,11 +82,11 @@ public class DiyetListesiDAO extends SuperDAO {
             rs.next();
             diyetListesi = new DiyetListesi();
 
-            diyetListesi.setDiyet_id(rs.getInt("diyet_id"));
-            diyetListesi.setYemek_isim(rs.getString("gramaj"));
-            diyetListesi.setGramaj(rs.getString("saat_araligi"));
-            diyetListesi.setSaat_araligi(rs.getString("yemek_ismi"));
-             diyetListesi.setEgitim(this.getEgitimdao().find(rs.getInt("egitim_id")));
+            diyetListesi.setDiyet_id(rs.getInt("diy_listesi_id"));
+            diyetListesi.setYemek_isim(rs.getString("yemek_ismi"));
+            diyetListesi.setGramaj(rs.getString("gramaj"));
+            diyetListesi.setSaat_araligi(rs.getString("saat_araliği"));
+            diyetListesi.setEgitim(this.getEgitimdao().find(rs.getInt("egitim_id")));
 
         } catch (SQLException ex) {
             System.out.println(" DiyetListesiDAO HATA(Find): " + ex.getMessage());
@@ -113,7 +117,7 @@ public class DiyetListesiDAO extends SuperDAO {
     public EgitimDAO getEgitimdao() {
         if (this.egitimdao == null) {
             this.egitimdao = new EgitimDAO();
-            
+
         }
         return egitimdao;
     }
@@ -122,6 +126,30 @@ public class DiyetListesiDAO extends SuperDAO {
         this.egitimdao = egitimdao;
     }
 
-   
+    public int count() {
+        int count = 0;
+
+        try {
+            PreparedStatement pst = this.getConnection().prepareStatement("select count(diy_listesi_id) as diyet_count from diyet_listesi");
+            ResultSet rs = pst.executeQuery();
+            rs.next();
+            count = rs.getInt("diyet_count");
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return count;
+    }
+
+    public UyeDAO getUyedao() {
+        if (this.uyedao == null) {
+            this.uyedao = new UyeDAO();
+        }
+        return uyedao;
+    }
+
+    public void setUyedao(UyeDAO uyedao) {
+        this.uyedao = uyedao;
+    }
 
 }

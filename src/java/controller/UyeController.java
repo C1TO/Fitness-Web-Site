@@ -22,20 +22,23 @@ public class UyeController implements Serializable {
     private EgitimController egitimController;
 
     private int page = 1;
-    private int pageSize = 6;
+    private int pageSize = 4;
     private int pageCount;
 
-   public void ileri(){
-        if (this.page ==this.getPageCount()) 
-            this.page=1;
-        else
-        this.page++;
+    public void ileri() {
+        if (this.page == this.getPageCount()) {
+            this.page = 1;
+        } else {
+            this.page++;
+        }
     }
-    public void geri(){
-        if (this.page==1) 
-            this.page=this.getPageCount();
-        else
-        this.page--;
+
+    public void geri() {
+        if (this.page == 1) {
+            this.page = this.getPageCount();
+        } else {
+            this.page--;
+        }
     }
 
     public int getPage() {
@@ -81,6 +84,11 @@ public class UyeController implements Serializable {
         this.clearForm();
     }
 
+    public void sifremiunuttum() {
+        this.getUyedao().sifremiunuttum(this.uye);
+        this.clearForm();
+    }
+
     public void delete() {
         this.getUyedao().delete(this.uye);
         this.clearForm();
@@ -91,8 +99,6 @@ public class UyeController implements Serializable {
         this.clearForm();
     }
 
-    
-    
     public List<Uye> getUyelist() {
         this.uyelist = this.getUyedao().findAll(this.bul, page, pageSize);
         return uyelist;

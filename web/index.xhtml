@@ -36,42 +36,38 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-
                         <h:form>
                             <h:messages styleClass="alert alert-danger alert" />
                             <div id="logo" class="pull-left" style="margin-top: 20px; margin-right: 10px;">
                                 <h1><a href="#body" class="scrollto">FitnessXP</a></h1>
                             </div>
-
                             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                                 <div class="collapse navbar-collapse" id="navbarNav">
 
                                     <div class="col-md-4">
-                                        <br/>
                                         <p>Kullanıcı Adı <h:inputText styleClass="form-control" value="#{loginController.uye.uye_mail}"/> </p> 
                                     </div>
 
-                                    <div class="col-md-4">
-                                        <br/>
+                                    <div class="col-md-4">                                    
                                         <p>Şifre <h:inputSecret styleClass="form-control"  value="#{loginController.uye.sifre}"/></p>
-
                                     </div>
+
 
                                     <div class="col-md-2 text-center">
                                         <h:commandButton  styleClass="btn btn-primary" action="#{loginController.login()}" value="Giriş"/>
                                     </div>
-
                                     <div class="col-md-2 text-center">
                                         <h:commandButton  styleClass="btn btn-dark" action="back_end/kayitol/kayitol.xhtml" value="Kayıt Ol"/>
                                     </div>
-
+                                    <div class="col-md-2 text-center">
+                                        <h:commandButton  styleClass="btn-xs btn-danger" action="back_end/kayitol/sifremiunuttum.xhtml" value="Şifremi Unuttum"/>
+                                    </div>
                                 </div>
                             </nav>
+                    </h:form>
 
-                        </h:form>
-
-                    </div>
                 </div>
+            </div>
             </div>
 
         </section>

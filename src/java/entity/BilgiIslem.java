@@ -4,28 +4,27 @@ import java.util.Objects;
 
 public class BilgiIslem {
 
-    private int bilgiıslem_id;
+    private int bilgi_id;
     private String baslangic_tarihi;
     private String bitis_tarihi;
 
     private Uye uye;
-    private Egitim egitim;
 
     public BilgiIslem() {
     }
 
-    public BilgiIslem(int bilgiıslem_id, String baslangic_tarihi, String bitis_tarihi) {
-        this.bilgiıslem_id = bilgiıslem_id;
+    public BilgiIslem(int bilgi_id, String baslangic_tarihi, String bitis_tarihi) {
+        this.bilgi_id = bilgi_id;
         this.baslangic_tarihi = baslangic_tarihi;
         this.bitis_tarihi = bitis_tarihi;
     }
 
-    public int getBilgiıslem_id() {
-        return bilgiıslem_id;
+    public int getBilgi_id() {
+        return bilgi_id;
     }
 
-    public void setBilgiıslem_id(int bilgiıslem_id) {
-        this.bilgiıslem_id = bilgiıslem_id;
+    public void setBilgi_id(int bilgi_id) {
+        this.bilgi_id = bilgi_id;
     }
 
     public String getBaslangic_tarihi() {
@@ -45,10 +44,6 @@ public class BilgiIslem {
     }
 
     public Uye getUye() {
-        if (this.uye == null) {
-            this.uye = new Uye();
-
-        }
         return uye;
     }
 
@@ -56,26 +51,13 @@ public class BilgiIslem {
         this.uye = uye;
     }
 
-    public Egitim getEgitim() {
-        if (this.egitim == null) {
-            this.egitim = new Egitim();
-
-        }
-        return egitim;
-    }
-
-    public void setEgitim(Egitim egitim) {
-        this.egitim = egitim;
-    }
-
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 29 * hash + this.bilgiıslem_id;
-        hash = 29 * hash + Objects.hashCode(this.baslangic_tarihi);
-        hash = 29 * hash + Objects.hashCode(this.bitis_tarihi);
-        hash = 29 * hash + Objects.hashCode(this.uye);
-        hash = 29 * hash + Objects.hashCode(this.egitim);
+        int hash = 7;
+        hash = 71 * hash + this.bilgi_id;
+        hash = 71 * hash + Objects.hashCode(this.baslangic_tarihi);
+        hash = 71 * hash + Objects.hashCode(this.bitis_tarihi);
+        hash = 71 * hash + Objects.hashCode(this.uye);
         return hash;
     }
 
@@ -88,7 +70,7 @@ public class BilgiIslem {
             return false;
         }
         final BilgiIslem other = (BilgiIslem) obj;
-        if (this.bilgiıslem_id != other.bilgiıslem_id) {
+        if (this.bilgi_id != other.bilgi_id) {
             return false;
         }
         if (!Objects.equals(this.baslangic_tarihi, other.baslangic_tarihi)) {
@@ -100,15 +82,17 @@ public class BilgiIslem {
         if (!Objects.equals(this.uye, other.uye)) {
             return false;
         }
-        if (!Objects.equals(this.egitim, other.egitim)) {
-            return false;
-        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "BilgiIslem{" + "bilgi\u0131slem_id=" + bilgiıslem_id + ", baslangic_tarihi=" + baslangic_tarihi + ", bitis_tarihi=" + bitis_tarihi + ", uye=" + uye + ", egitim=" + egitim + '}';
+        return "BilgiIslem{" + "bilgi_id=" + bilgi_id + ", baslangic_tarihi=" + baslangic_tarihi + ", bitis_tarihi=" + bitis_tarihi + ", uye=" + uye + '}';
     }
+    
+    
+    
+
+    
 
 }

@@ -12,59 +12,52 @@ public class BilgiIslemDAO extends SuperDAO {
     PreparedStatement pst = null;
     ResultSet rs = null;
 
-    EgitimDAO egitimdao;
     UyeDAO uyedao;
 
-    public void insert(BilgiIslem bilgiIslem) {
+    public void insert(BilgiIslem bilgi) {
         try {
-            pst = this.getConnection().prepareStatement("insert into bilgi_islem (egitim_id,uye_id,baslangic_tarih,bitis_tarih) values(?,?,?,?) ");
-
-            pst.setInt(1, bilgiIslem.getEgitim().getEgitim_id());
-            pst.setInt(2, bilgiIslem.getUye().getUye_id());
-            pst.setString(3, bilgiIslem.getBaslangic_tarihi());
-            pst.setString(4, bilgiIslem.getBitis_tarihi());
-
+            pst = this.getConnection().prepareStatement("insert into bilgi_islem (baslangic_tarih,bitis_tarih,uye_id) values(?,?,?)");
+            pst.setString(1, bilgi.getBaslangic_tarihi());
+            pst.setString(2, bilgi.getBitis_tarihi());
+            pst.setInt(3, bilgi.getUye().getUye_id());
             pst.executeUpdate();
             pst.close();
-
         } catch (SQLException ex) {
             System.out.println("BilgiIslemDAO HATA(Create) : " + ex.getMessage());
         }
     }
 
-    public void delete(BilgiIslem bilgiIslem) {
-
+    public void delete(BilgiIslem bilgi) {
         try {
             pst = this.getConnection().prepareStatement("delete from bilgi_islem where bilgi_id=?");
-            pst.setInt(1, bilgiIslem.getBilgiıslem_id());
+            pst.setInt(1, bilgi.getBilgi_id());
             pst.executeUpdate();
             pst.close();
+
         } catch (SQLException ex) {
             System.out.println(" BilgiIslemDAO HATA(Delete): " + ex.getMessage());
         }
     }
 
     public List<BilgiIslem> findAll(int page, int pageSize) {
-        List<BilgiIslem> bilgiIslemlist = new ArrayList();
+        List<BilgiIslem> bilgilist = new ArrayList();
         int start = (page - 1) * pageSize;
-        try {
-            pst = this.getConnection().prepareStatement("select * from bilgi_islem order by bilgi_id asc limit " + start + " , " + pageSize);
-            
 
+        try {
+            pst = this.getConnection().prepareStatement("select* from bilgi_islem order by bilgi_id asc limit " + start + " , " + pageSize);
             rs = pst.executeQuery();
+
             while (rs.next()) {
                 BilgiIslem temp = new BilgiIslem();
 
-                temp.setBilgiıslem_id(rs.getInt("bilgi_id"));
-                temp.setEgitim(this.getEgitimdao().find(rs.getInt("egitim_id")));
-                temp.setUye(this.getUyedao().find(rs.getInt("uye_id")));
+                temp.setBilgi_id(rs.getInt("bilgi_id"));
                 temp.setBaslangic_tarihi(rs.getString("baslangic_tarih"));
                 temp.setBitis_tarihi(rs.getString("bitis_tarih"));
+                temp.setUye(this.getUyedao().find(rs.getInt("uye_id")));
 
-                bilgiIslemlist.add(temp);
+                bilgilist.add(temp);
             }
-
-            return bilgiIslemlist;
+            return bilgilist;
         } catch (SQLException ex) {
             System.out.println("BilgiIslemDAO HATA(FindAll):" + ex.getMessage());
             return null;
@@ -72,39 +65,33 @@ public class BilgiIslemDAO extends SuperDAO {
     }
 
     public BilgiIslem find(int id) {
-        BilgiIslem bilgiIslem = null;
+        BilgiIslem bilgi = null;
         try {
             pst = this.getConnection().prepareStatement("select * from bilgi_islem where bilgi_id = ?");
             pst.setInt(1, id);
             rs = pst.executeQuery();
+
             rs.next();
-
-            bilgiIslem = new BilgiIslem();
-
-            bilgiIslem.setBilgiıslem_id(rs.getInt("bilgi_id"));
-            bilgiIslem.setEgitim(this.getEgitimdao().find(rs.getInt("egitim_id")));
-            bilgiIslem.setUye(this.getUyedao().find(rs.getInt("uye_id")));
-            bilgiIslem.setBaslangic_tarihi(rs.getString("baslangic_tarih"));
-            bilgiIslem.setBitis_tarihi(rs.getString("bitis_tarih"));
+            bilgi = new BilgiIslem();
+            bilgi.setBilgi_id(rs.getInt("bilgi_id"));
+            bilgi.setBaslangic_tarihi(rs.getString("baslangic_tarih"));
+            bilgi.setBitis_tarihi(rs.getString("bitis_tarih"));
+            bilgi.setUye(this.getUyedao().find(rs.getInt("uye_id")));
 
         } catch (SQLException ex) {
-
             System.out.println("BilgiIslemDAO HATA(Find):" + ex.getMessage());
         }
-
-        return bilgiIslem;
+        return bilgi;
     }
 
-    public void update(BilgiIslem bilgiIslem) {
+    public void update(BilgiIslem bilgi) {
         try {
-            pst = this.getConnection().prepareStatement("update bilgi_islem set  egitim_id=?,uye_id=?,baslangic_tarih=?,bitis_tarih=? where bilgi_id=?");
+            pst = this.getConnection().prepareStatement("update bilgi_islem set baslangic_tarih=?,bitis_tarih=?,uye_id=? where bilgi_id=?");
+            pst.setString(1, bilgi.getBaslangic_tarihi());
+            pst.setString(2, bilgi.getBitis_tarihi());
+            pst.setInt(3, bilgi.getUye().getUye_id());
 
-            pst.setInt(1, bilgiIslem.getEgitim().getEgitim_id());
-            pst.setInt(2, bilgiIslem.getUye().getUye_id());
-            pst.setString(3, bilgiIslem.getBaslangic_tarihi());
-            pst.setString(4, bilgiIslem.getBitis_tarihi());
-
-            pst.setInt(5, bilgiIslem.getBilgiıslem_id());
+            pst.setInt(4, bilgi.getBilgi_id());
             pst.executeUpdate();
             pst.close();
         } catch (SQLException ex) {
@@ -112,16 +99,17 @@ public class BilgiIslemDAO extends SuperDAO {
         }
     }
 
-    public EgitimDAO getEgitimdao() {
-        if (this.egitimdao == null) {
-            this.egitimdao = new EgitimDAO();
-
+    public int count() {
+        int count = 0;
+        try {
+            pst = this.getConnection().prepareStatement("select count(bilgi_id) as bilgi_count from bilgi_islem");
+            rs = pst.executeQuery();
+            rs.next();
+            count = rs.getInt("bilgi_count");
+        } catch (SQLException ex) {
+            System.out.println("BilgiIslemDAO HATA(Count):" + ex.getMessage());
         }
-        return egitimdao;
-    }
-
-    public void setEgitimdao(EgitimDAO egitimdao) {
-        this.egitimdao = egitimdao;
+        return count;
     }
 
     public UyeDAO getUyedao() {
@@ -134,21 +122,6 @@ public class BilgiIslemDAO extends SuperDAO {
 
     public void setUyedao(UyeDAO uyedao) {
         this.uyedao = uyedao;
-    }
-
-    public int count() {
-        int count = 0;
-
-        try {
-            PreparedStatement pst = this.getConnection().prepareStatement("select count(bilgi_id) as bilgi_count from bilgi_islem");
-            ResultSet rs = pst.executeQuery();
-            rs.next();
-            count = rs.getInt("bilgi_count");
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return count;
     }
 
 }

@@ -6,33 +6,41 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <link rel="stylesheet" href="../../ekdosya/resources/css/bootstrap.css"></link>
     <link rel="stylesheet" href="../../ekdosya/resources/js/bootstrap.js"></link>
-    <div class="container">
-        <div class="row">
+    <div class="container" style="margin-top: 10px;">
+        <div class="row" style="margin-top: 10px;">
             <h:form id="bilgi-table">
-                <h:dataTable styleClass="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%" value="#{bilgiIslemController.bilgiıslem_list}" var="bilgi">
+                <h:dataTable styleClass="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%" value="#{bilgiIslemController.bilgi_list}" var="bilgi">
 
-                    <h:column>
+                    <h:column rendered="#{sessionScope.valid_user.admin}">
                         <f:facet name="header">ID</f:facet>
-                            #{bilgi.bilgiıslem_id}
+                            #{bilgi.bilgi_id}
                     </h:column>
 
                     <h:column>
                         <f:facet name="header">Üye Adı Soyadı</f:facet>
-                            #{bilgi.uye.uye_ad} #{bilgi.uye.uye_soyad}
+                            #{bilgi.uye.uye_ad}
+                            #{bilgi.uye.uye_soyad}
                     </h:column>
 
                     <h:column>
-                        <f:facet name="header">Başlangıç Tarih</f:facet>
+                        <f:facet name="header">Alınan Eğitim</f:facet>
+                        <ul>
+                            <ui:repeat value="#{bilgi.uye.alegitim}" var="alinanegitim">
+                                <li>#{alinanegitim.egitim_adi}</li>
+                            </ui:repeat>
+                        </ul> 
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Başlangıç Tarihi</f:facet>
                             #{bilgi.baslangic_tarihi}
                     </h:column>
-
                     <h:column>
-                        <f:facet name="header">Bitiş Tarih</f:facet>
+                        <f:facet name="header">Bitiş Tarihi</f:facet>
                             #{bilgi.bitis_tarihi}
                     </h:column>
 
-                    <h:column>
-                        <f:facet name="header" rendered="#{sessionScope.valid_user.admin}">SEÇ</f:facet>
+                    <h:column rendered="#{sessionScope.valid_user.admin}">
+                        <f:facet name="header">SEÇ</f:facet>
                         <h:commandButton styleClass="btn btn-sm btn-info" value="İşaretle" action="#{bilgiIslemController.updateForm(bilgi)}">
                             <f:ajax render="bilgi-table bilgi-form" execute="@this" />
                         </h:commandButton>

@@ -5,41 +5,40 @@ import entity.BilgiIslem;
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.bean.ManagedBean;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-@ManagedBean(name = "date")
 @Named
 @SessionScoped
 public class BilgiIslemController implements Serializable {
 
-    private List<BilgiIslem> bilgiıslem_list;
-    private BilgiIslemDAO bilgiıslem_dao;
-    private BilgiIslem bilgiıslem;
+    private List<BilgiIslem> bilgi_list;
+    private BilgiIslemDAO bilgidao;
+    private BilgiIslem bilgi;
 
     @Inject
     private UyeController uyeController;
-    @Inject
-    private EgitimController egitimController;
-    @Inject
-    private AlinanEgitimController alinanController;
 
     private int page = 1;
     private int pageSize = 6;
     private int pageCount;
 
-    public void ileri(){
-        if (this.page ==this.getPageCount()) 
-            this.page=1;
-        else
-        this.page++;
+    public void ileri() {
+        if (this.page == this.getPageCount()) {
+            this.page = 1;
+        } else {
+            this.page++;
+        }
+        this.clearForm();
     }
-    public void geri(){
-        if (this.page==1) 
-            this.page=this.getPageCount();
-        else
-        this.page--;
+
+    public void geri() {
+        if (this.page == 1) {
+            this.page = this.getPageCount();
+        } else {
+            this.page--;
+        }
+        this.clearForm();
     }
 
     public int getPage() {
@@ -59,7 +58,7 @@ public class BilgiIslemController implements Serializable {
     }
 
     public int getPageCount() {
-        this.pageCount = (int) Math.ceil(this.getBilgiıslem_dao().count() / (double) pageSize);
+        this.pageCount = (int) Math.ceil(this.getBilgidao().count() / (double) pageSize);
         return pageCount;
     }
 
@@ -67,60 +66,59 @@ public class BilgiIslemController implements Serializable {
         this.pageCount = pageCount;
     }
 
-    public void updateForm(BilgiIslem bilgiıslem) {
-        this.bilgiıslem = bilgiıslem;
+    public void updateForm(BilgiIslem islem_bilgi) {
+        this.bilgi = islem_bilgi;
+        System.out.println(this.bilgi.getUye().toString());
     }
 
     public void clearForm() {
-        this.bilgiıslem = new BilgiIslem();
+        this.bilgi = new BilgiIslem();
     }
 
     public void create() {
-        this.getBilgiıslem_dao().insert(this.bilgiıslem);
-        this.clearForm();
-    }
-
-    public void delete() {
-        this.getBilgiıslem_dao().delete(this.bilgiıslem);
+        this.getBilgidao().insert(this.bilgi);
         this.clearForm();
     }
 
     public void update() {
-        this.getBilgiıslem_dao().update(this.bilgiıslem);
+        this.getBilgidao().update(this.bilgi);
+        this.clearForm();
+    }
+    public void delete()
+    {
+        this.getBilgidao().delete(this.bilgi);
         this.clearForm();
     }
 
-    public List<BilgiIslem> getBilgiıslem_list() {
-        this.bilgiıslem_list = this.getBilgiıslem_dao().findAll(page, pageSize);
-        return bilgiıslem_list;
+    public List<BilgiIslem> getBilgi_list() {
+        this.bilgi_list = this.getBilgidao().findAll(page, pageSize);
+        return bilgi_list;
     }
 
-    public void setBilgiıslem_list(List<BilgiIslem> bilgiıslem_list) {
-        this.bilgiıslem_list = bilgiıslem_list;
+    public void setBilgi_list(List<BilgiIslem> bilgi_list) {
+        this.bilgi_list = bilgi_list;
     }
 
-    public BilgiIslemDAO getBilgiıslem_dao() {
-        if (this.bilgiıslem_dao == null) {
-            this.bilgiıslem_dao = new BilgiIslemDAO();
-
+    public BilgiIslemDAO getBilgidao() {
+        if (this.bilgidao == null) {
+            this.bilgidao = new BilgiIslemDAO();
         }
-        return bilgiıslem_dao;
+        return bilgidao;
     }
 
-    public void setBilgiıslem_dao(BilgiIslemDAO bilgiıslem_dao) {
-        this.bilgiıslem_dao = bilgiıslem_dao;
+    public void setBilgidao(BilgiIslemDAO bilgidao) {
+        this.bilgidao = bilgidao;
     }
 
-    public BilgiIslem getBilgiıslem() {
-        if (bilgiıslem == null) {
-            this.bilgiıslem = new BilgiIslem();
-
+    public BilgiIslem getBilgi() {
+        if (this.bilgi == null) {
+            this.bilgi = new BilgiIslem();
         }
-        return bilgiıslem;
+        return bilgi;
     }
 
-    public void setBilgiıslem(BilgiIslem bilgiıslem) {
-        this.bilgiıslem = bilgiıslem;
+    public void setBilgi(BilgiIslem bilgi) {
+        this.bilgi = bilgi;
     }
 
     public UyeController getUyeController() {
@@ -133,29 +131,6 @@ public class BilgiIslemController implements Serializable {
 
     public void setUyeController(UyeController uyeController) {
         this.uyeController = uyeController;
-    }
-
-    public EgitimController getEgitimController() {
-        if (this.egitimController == null) {
-            this.egitimController = new EgitimController();
-
-        }
-        return egitimController;
-    }
-
-    public void setEgitimController(EgitimController egitimController) {
-        this.egitimController = egitimController;
-    }
-
-    public AlinanEgitimController getAlinanController() {
-        if (this.alinanController == null) {
-            this.alinanController = new AlinanEgitimController();
-        }
-        return alinanController;
-    }
-
-    public void setAlinanController(AlinanEgitimController alinanController) {
-        this.alinanController = alinanController;
     }
 
 }

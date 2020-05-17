@@ -11,7 +11,7 @@ import javax.inject.Named;
 @Named
 @SessionScoped
 public class BilgiIslemController implements Serializable {
-
+//bilgi işlem controller
     private List<BilgiIslem> bilgi_list;
     private BilgiIslemDAO bilgidao;
     private BilgiIslem bilgi;

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BilgiIslemDAO extends SuperDAO {
-
+//bilgi işlem dao
     PreparedStatement pst = null;
     ResultSet rs = null;
 

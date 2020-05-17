@@ -1,7 +1,7 @@
 package entity;
 
 public class AlinanEgitim {
-
+//alınan egitim 
     private int alinan_id;
     private Uye uye;
     private Egitim egitim;

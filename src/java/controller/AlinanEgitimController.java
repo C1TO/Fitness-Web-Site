@@ -11,7 +11,7 @@ import javax.inject.Named;
 @Named
 @SessionScoped
 public class AlinanEgitimController implements Serializable {
-
+//alinan egitim controller
     private List<AlinanEgitim> alinan_list;
     private AlinanEgitimDAO alinandao;
     private AlinanEgitim alinanEgitim;

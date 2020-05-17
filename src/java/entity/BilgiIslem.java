@@ -3,7 +3,7 @@ package entity;
 import java.util.Objects;
 
 public class BilgiIslem {
-
+//bilgi işlem
     private int bilgi_id;
     private String baslangic_tarihi;
     private String bitis_tarihi;

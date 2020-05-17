@@ -16,15 +16,15 @@
                 <h3 class="text-info">Vücut Kitle İndex İşlem Formu</h3>
             </div>
             <br/>
-            <label for="inputKilo">Kilonuz (Örn. 69) -->(1-500)</label>
+            <label for="inputKilo">Kilonuz (Örn. 69kg) -->(1kg ile 500kg arası)</label>
             <h:inputText id="inputKilo" styleClass="form-control" value="#{olcumController.olcum.kilo}" validatorMessage="XHTML VALİDATİON: Kilo 0'dan büyük 500'den küçük olmalıdır">
                 <f:validateDoubleRange minimum="0.1" maximum="500.0" for="inputKilo"/>
             </h:inputText>
             <br/>
 
-            <label for="inputBoy">Boyunuz (Örn. 172)</label>
+            <label for="inputBoy">Boyunuz (Örn. 172cm) -->(150cm ile 300cm arası)</label>
             <h:inputText id="inputBoy" styleClass="form-control" value="#{olcumController.olcum.boy}"  validatorMessage="XHTML VALİDATİON: Boy 150'den büyük 300'dan küçük olmalıdır">
-                <f:validateDoubleRange minimum="151.0" maximum="300.0" for="inputBoy"/>
+                <f:validateDoubleRange minimum="150.0" maximum="300.0" for="inputBoy"/>
             </h:inputText>
 
         </div>

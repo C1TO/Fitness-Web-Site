@@ -8,14 +8,14 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.util.List;
-import javax.faces.view.ViewScoped;
+import javax.enterprise.context.SessionScoped;
 
 import javax.inject.Named;
 import javax.servlet.http.Part;
 
 
 @Named
-@ViewScoped
+@SessionScoped
 public class DocumentController implements Serializable {
 
     private Document document;

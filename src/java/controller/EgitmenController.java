@@ -13,7 +13,7 @@ import javax.inject.Named;
 public class EgitmenController implements Serializable {
 
     private List<Egitmen> egitmenlist;
-
+    private List<Egitmen> full_list;
     private EgitmenDAO egitmendao;
 
     private Egitmen egitmen;
@@ -26,7 +26,7 @@ public class EgitmenController implements Serializable {
     private int pageSize = 6;
     private int pageCount;
 
-   public void ileri() {
+    public void ileri() {
         if (this.page == this.getPageCount()) {
             this.page = 1;
         } else {
@@ -41,7 +41,7 @@ public class EgitmenController implements Serializable {
         } else {
             this.page--;
         }
-         this.clearForm();
+        this.clearForm();
     }
 
     public int getPage() {
@@ -100,6 +100,16 @@ public class EgitmenController implements Serializable {
         this.bul = bul;
     }
 
+    public List<Egitmen> getFull_list() {
+        this.full_list = this.getEgitmendao().findAll();
+        return full_list;
+    }
+
+    public void setFull_list(List<Egitmen> full_list) {
+        this.full_list = full_list;
+    }
+
+    
     public List<Egitmen> getEgitmenlist() {
         this.egitmenlist = this.getEgitmendao().findAll(this.bul, page, pageSize);
         return egitmenlist;

@@ -94,6 +94,35 @@ public class UyeDAO extends SuperDAO {
         }
         return ulist;
     }
+    
+    public List<Uye> findAll() {
+        List<Uye> uye_list = new ArrayList();
+
+        try {
+            pst = this.getConnection().prepareStatement("SELECT * FROM uyeler where admin=0");
+
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                Uye temp = new Uye();
+                temp.setUye_id(rs.getInt("uye_id"));
+                temp.setUye_ad(rs.getString("uye_ad"));
+                temp.setUye_soyad(rs.getString("uye_soyad"));
+                temp.setUye_cinsiyet(rs.getString("uye_cinsiyet"));
+                temp.setUye_yas(rs.getInt("uye_yas"));
+                temp.setUye_tel(rs.getString("uye_tel"));
+                temp.setUye_mail(rs.getString("uye_mail"));
+                temp.setKart_no(rs.getString("uye_kartno"));
+                temp.setSifre(rs.getString("sifre"));
+                temp.setAlegitim(this.getEgitimdao().getAlinanEgitim(temp.getUye_id()));
+                uye_list.add(temp);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("UyeDAO HATA(READ):" + ex.getMessage());
+
+        }
+        return uye_list;
+    }
 
     public Uye find(int id) {
         Uye uye = null;

@@ -27,7 +27,7 @@
 
             <label for="selectEgitmen" style="font-size: 18px;">Sorumlu Öğretmen </label>
             <h:selectOneMenu styleClass="custom-select" id="selectEgitmen" value="#{egitimController.egitim.egitmen}" converter="egitmenConverter" >
-                <f:selectItems value="#{egitimController.egitmenController.egitmenlist}" var="egitmen" itemValue="#{egitmen}" itemLabel="#{egitmen.egitmen_ad} #{egitmen.egitmen_soyad}"/>
+                <f:selectItems value="#{egitimController.egitmenController.full_list}" var="egitmen" itemValue="#{egitmen}" itemLabel="#{egitmen.egitmen_ad} #{egitmen.egitmen_soyad}"/>
             </h:selectOneMenu>
             <br/><br/>
             <h:inputText styleClass="form-control" a:placeholder="Ücret" value = "#{egitimController.egitim.egitim_ucret}" validator="#{egitimvalidator.validateUcret}"/>

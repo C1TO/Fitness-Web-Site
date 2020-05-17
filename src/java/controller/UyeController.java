@@ -20,7 +20,7 @@ public class UyeController implements Serializable {
     private String bul = "";
     @Inject
     private EgitimController egitimController;
-
+    private List<Uye> full_list;
     private int page = 1;
     private int pageSize = 4;
     private int pageCount;
@@ -100,6 +100,17 @@ public class UyeController implements Serializable {
         this.getUyedao().update(this.uye);
         this.clearForm();
     }
+
+    public List<Uye> getFull_list() {
+        this.full_list = this.getUyedao().findAll();
+        return full_list;
+    }
+
+    public void setFull_list(List<Uye> full_list) {
+        this.full_list = full_list;
+    }
+    
+    
 
     public List<Uye> getUyelist() {
         this.uyelist = this.getUyedao().findAll(this.bul, page, pageSize);

@@ -82,6 +82,39 @@ public class EgitmenDAO extends SuperDAO {
         }
 
     }
+    
+      public List<Egitmen> findAll() {
+        List<Egitmen> egitmen_list = new ArrayList();
+  
+
+        try {
+            pst = this.getConnection().prepareStatement("SELECT * FROM egitmenler");
+
+
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                Egitmen temp = new Egitmen();
+                temp.setEgitmen_id(rs.getInt("egitmen_id"));
+                temp.setUz_alan(rs.getString("uz_alan"));
+                temp.setTecrube(rs.getString("egitmen_tecrube"));
+                temp.setEgitmen_ad(rs.getString("egitmen_ad"));
+                temp.setEgitmen_soyad(rs.getString("egitmen_soyad"));
+                temp.setEgitmen_cinsiyet(rs.getString("egitmen_cinsiyet"));
+                temp.setEgitmen_yas(rs.getInt("egitmen_yas"));
+                temp.setEgitmen_cep_telefonu(rs.getString("egitmen_tel"));
+                temp.setEgitmen_email(rs.getString("egitmen_mail"));
+
+                egitmen_list.add(temp);
+
+            }
+            return egitmen_list;
+        } catch (SQLException ex) {
+            System.out.println("EgitmenDAO HATA(FindAll):" + ex.getMessage());
+            return null;
+        }
+
+    }
 
     public Egitmen find(int id) {
         Egitmen egitmen = null;

@@ -19,7 +19,7 @@
             <br/>
             <label for="selectUye" style="font-size: 18px;">Üye Adı</label>
             <h:selectOneMenu styleClass="custom-select col-lg-12 p-1" id="selectUye" value="#{bilgiIslemController.bilgi.uye}" converter="uyeConverter" >
-                <f:selectItems value="#{bilgiIslemController.uyeController.uyelist}" var="uye" itemValue="#{uye}" itemLabel="#{uye.uye_ad} #{uye.uye_soyad}"/>
+                <f:selectItems value="#{bilgiIslemController.uyeController.full_list}" var="uye" itemValue="#{uye}" itemLabel="#{uye.uye_ad} #{uye.uye_soyad}"/>
             </h:selectOneMenu>
             <br/>
             <br/>

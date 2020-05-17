@@ -20,6 +20,7 @@ public class EgitimController implements Serializable {
     private DocumentDAO documendao;
     private Egitim egitim;
     private String bul = "";
+    private List<Egitim> full_list;
 
     private int page = 1;
     private int pageSize = 6;
@@ -120,6 +121,17 @@ public class EgitimController implements Serializable {
     public void setBul(String bul) {
         this.bul = bul;
     }
+
+    public List<Egitim> getFull_list() {
+        this.full_list = this.getEgitim_dao().findAll();
+        return full_list;
+    }
+
+    public void setFull_list(List<Egitim> full_list) {
+        this.full_list = full_list;
+    }
+    
+    
 
     public List<Document> getDocumentlist() {
         this.documentlist = this.getDocumendao().findAll(this.bul, page, pageSize);

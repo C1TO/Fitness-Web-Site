@@ -17,7 +17,7 @@
             <br/>
             <label for="selectEgitim" style="font-size:18px;">Eğitim Adı</label>  
             <h:selectOneMenu styleClass="custom-select" id="selectEgitmen" value="#{programListesiController.programListesi.egitim}" converter="egitimConverter" >
-                <f:selectItems value="#{egitimController.egitim_list}" var="egitim" itemValue="#{egitim}" itemLabel="#{egitim.egitim_adi}"/>
+                <f:selectItems value="#{egitimController.full_list}" var="egitim" itemValue="#{egitim}" itemLabel="#{egitim.egitim_adi}"/>
             </h:selectOneMenu>
 
             <br/>

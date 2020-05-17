@@ -70,6 +70,8 @@ public class EgitimDAO extends SuperDAO {
         }
 
     }
+    
+   
 
     public List<Egitim> getAlinanEgitim(int uye_id) {
         List<Egitim> egitimalinan = new ArrayList<>();

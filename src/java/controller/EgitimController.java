@@ -1,6 +1,8 @@
 package controller;
 
+import dao.DocumentDAO;
 import dao.EgitimDAO;
+import entity.Document;
 import entity.Egitim;
 import java.io.Serializable;
 import java.util.List;
@@ -13,7 +15,9 @@ import javax.inject.Named;
 public class EgitimController implements Serializable {
 
     private List<Egitim> egitim_list;
+    private List<Document> documentlist;
     private EgitimDAO egitim_dao;
+    private DocumentDAO documendao;
     private Egitim egitim;
     private String bul = "";
 
@@ -61,7 +65,18 @@ public class EgitimController implements Serializable {
 
     @Inject
     private EgitmenController egitmenController;
+     @Inject
+    private DocumentController documentController;
 
+    public DocumentController getDocumentController() {
+        return documentController;
+    }
+
+    public void setDocumentController(DocumentController documentController) {
+        this.documentController = documentController;
+    }
+
+     
     public EgitmenController getEgitmenController() {
         return egitmenController;
     }
@@ -85,6 +100,7 @@ public class EgitimController implements Serializable {
 
     public void delete() {
         this.getEgitim_dao().delete(this.egitim);
+        this.clearForm();
     }
 
     public void update() {
@@ -100,6 +116,29 @@ public class EgitimController implements Serializable {
         this.bul = bul;
     }
 
+    public List<Document> getDocumentlist() {
+        this.documentlist = this.getDocumendao().findAll(this.bul, page, pageSize);
+        return documentlist;
+    }
+
+    public void setDocumentlist(List<Document> documentlist) {
+        this.documentlist = documentlist;
+    }
+
+    public DocumentDAO getDocumendao() {
+        if (this.documendao == null) {
+            this.documendao = new DocumentDAO();    
+        }
+        return documendao;
+    }
+
+    public void setDocumendao(DocumentDAO documendao) {
+        this.documendao = documendao;
+    }
+    
+    
+
+    
     public List<Egitim> getEgitim_list() {
         this.egitim_list = this.getEgitim_dao().findAll(this.bul, page, pageSize);
         return egitim_list;

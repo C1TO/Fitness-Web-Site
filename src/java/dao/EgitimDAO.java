@@ -13,16 +13,17 @@ public class EgitimDAO extends SuperDAO {
     ResultSet rs = null;
 
     EgitmenDAO egitmendao;
+    DocumentDAO documendao;
 
     public void insert(Egitim egitim) {
         try {
-            pst = this.getConnection().prepareStatement("insert into egitimler (egitim_icerik,egitim_adi,egitim_ucret,"
-                    + "egitmen_id) values(?,?,?,?) ");
+            pst = this.getConnection().prepareStatement("insert into egitimler (egitim_icerik,egitim_adi,egitim_ucret,egitmen_id,document_id) values(?,?,?,?,?) ");
 
             pst.setString(1, egitim.getEgitim_icerik());
             pst.setString(2, egitim.getEgitim_adi());
             pst.setString(3, egitim.getEgitim_ucret());
             pst.setInt(4, egitim.getEgitmen().getEgitmen_id());
+            pst.setInt(5, egitim.getDocument().getDocument_id());
             pst.executeUpdate();
             pst.close();
 
@@ -48,7 +49,7 @@ public class EgitimDAO extends SuperDAO {
         int start = (page - 1) * pageSize;
         try {
             pst = this.getConnection().prepareStatement("select * from egitimler where egitim_adi like ? order by egitim_id asc limit " + start + " , " + pageSize);
-            pst.setString(1, "%" + deger + "%");  
+            pst.setString(1, "%" + deger + "%");
 
             rs = pst.executeQuery();
             while (rs.next()) {
@@ -58,7 +59,7 @@ public class EgitimDAO extends SuperDAO {
                 temp.setEgitim_adi(rs.getString("egitim_adi"));
                 temp.setEgitim_ucret(rs.getString("egitim_ucret"));
                 temp.setEgitmen(this.getEgitmendao().find(rs.getInt("egitmen_id")));
-
+                temp.setDocument(this.getDocumendao().find(rs.getInt("document_id")));
                 egitimlist.add(temp);
             }
 
@@ -104,6 +105,7 @@ public class EgitimDAO extends SuperDAO {
                 egitim.setEgitim_adi(rs.getString("egitim_adi"));
                 egitim.setEgitim_ucret(rs.getString("egitim_ucret"));
                 egitim.setEgitmen(this.getEgitmendao().find(rs.getInt("egitmen_id")));
+                egitim.setDocument(this.getDocumendao().find(rs.getInt("document_id")));
             }
         } catch (SQLException ex) {
 
@@ -114,14 +116,14 @@ public class EgitimDAO extends SuperDAO {
 
     public void update(Egitim egitim) {
         try {
-            pst = this.getConnection().prepareStatement("update egitimler set egitim_icerik=? , egitim_adi=? , egitim_ucret=? , egitmen_id=? where egitim_id=?");
+            pst = this.getConnection().prepareStatement("update egitimler set egitim_icerik=? , egitim_adi=? , egitim_ucret=? , egitmen_id=? , document_id=? where egitim_id=?");
 
             pst.setString(1, egitim.getEgitim_icerik());
             pst.setString(2, egitim.getEgitim_adi());
             pst.setString(3, egitim.getEgitim_ucret());
             pst.setInt(4, egitim.getEgitmen().getEgitmen_id());
-
-            pst.setInt(5, egitim.getEgitim_id());
+            pst.setInt(5, egitim.getDocument().getDocument_id());
+            pst.setInt(6, egitim.getEgitim_id());
             pst.executeUpdate();
             pst.close();
         } catch (SQLException ex) {
@@ -144,6 +146,7 @@ public class EgitimDAO extends SuperDAO {
                 temp.setEgitim_adi(rs.getString("egitim_adi"));
                 temp.setEgitim_ucret(rs.getString("egitim_ucret"));
                 temp.setEgitmen(this.getEgitmendao().find(rs.getInt("egitmen_id")));
+                temp.setDocument(this.getDocumendao().find(rs.getInt("document_id")));
 
                 Elist.add(temp);
             }
@@ -184,9 +187,7 @@ public class EgitimDAO extends SuperDAO {
         List<Egitim> egitimlist = new ArrayList();
         int start = (page - 1) * pageSize;
         try {
-            pst = this.getConnection().prepareStatement("select * from egitimler order by egitim_id asc OFFSET ? limit ? ");
-            pst.setInt(1, start);
-            pst.setInt(2, pageSize);
+            pst = this.getConnection().prepareStatement("select * from egitimler order by egitim_id asc limit " + start + " , " + pageSize);
             rs = pst.executeQuery();
             while (rs.next()) {
                 Egitim temp = new Egitim();
@@ -195,6 +196,7 @@ public class EgitimDAO extends SuperDAO {
                 temp.setEgitim_adi(rs.getString("egitim_adi"));
                 temp.setEgitim_ucret(rs.getString("egitim_ucret"));
                 temp.setEgitmen(this.getEgitmendao().find(rs.getInt("egitmen_id")));
+                temp.setDocument(this.getDocumendao().find(rs.getInt("document_id")));
                 egitimlist.add(temp);
             }
             return egitimlist;
@@ -202,6 +204,17 @@ public class EgitimDAO extends SuperDAO {
             System.out.println("EgitimDAO HATA(FindAll):" + ex.getMessage());
             return null;
         }
+    }
+
+    public DocumentDAO getDocumendao() {
+        if (this.documendao == null) {
+            this.documendao = new DocumentDAO();
+        }
+        return documendao;
+    }
+
+    public void setDocumendao(DocumentDAO documendao) {
+        this.documendao = documendao;
     }
 
 }

@@ -40,6 +40,7 @@ public class OlcumController implements Serializable {
 
     public void delete() {
         this.getOlcum_dao().delete(this.olcum);
+        this.clearForm();
     }
 
     public void update() {

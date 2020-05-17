@@ -10,6 +10,7 @@ public class Egitim {
     private String egitim_ucret;
 
     private Egitmen egitmen;
+    private Document document;
 
     public Egitim() {
     }
@@ -63,6 +64,20 @@ public class Egitim {
     public void setEgitmen(Egitmen egitmen) {
         this.egitmen = egitmen;
     }
+
+    public Document getDocument() {
+        if(this.document == null)
+        {
+            this.document = new Document();
+        }
+        return document;
+    }
+
+    public void setDocument(Document document) {
+        this.document = document;
+    }
+    
+    
 
     @Override
     public int hashCode() {

@@ -84,10 +84,7 @@ public class UyeController implements Serializable {
         this.clearForm();
     }
 
-    public void sifremiunuttum() {
-        this.getUyedao().sifremiunuttum(this.uye);
-        this.clearForm();
-    }
+  
 
     public void delete() {
         this.getUyedao().delete(this.uye);

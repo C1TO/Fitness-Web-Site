@@ -66,22 +66,23 @@ public class DocumentDAO extends SuperDAO {
     }
 
     public Document find(int id) {
-        Document y = null;
-        String query = ("select * from document where document_id=" + id);
+        Document document = null;
+
         try {
-            pst = getConnection().prepareStatement(query);
+            pst = getConnection().prepareStatement("select * from document where document_id=?");
+            pst.setInt(1, id);
             rs = pst.executeQuery();
             rs.next();
 
-            y = new Document();
-            y.setDocument_id(rs.getInt("document_id"));
-            y.setFilePath(rs.getString("filepath"));
-            y.setFileName(rs.getString("filename"));
-            y.setFileType(rs.getString("filetype"));
+            document = new Document();
+            document.setDocument_id(rs.getInt("document_id"));
+            document.setFilePath(rs.getString("filepath"));
+            document.setFileName(rs.getString("filename"));
+            document.setFileType(rs.getString("filetype"));
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return y;
+        return document;
 
     }
 

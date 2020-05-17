@@ -11,6 +11,11 @@
             <h:form id="egitim-table">
                 <h:dataTable styleClass="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%" value="#{egitimController.egitim_list}" var="egitim">
 
+                    <h:column>
+                        <f:facet name="header"></f:facet>
+                        <h:graphicImage width="100"  value="/upload/#{egitim.document.fileName}"/>
+                    </h:column>
+
                     <h:column rendered="#{sessionScope.valid_user.admin}">
                         <f:facet name="header">ID</f:facet>
                             #{egitim.egitim_id}

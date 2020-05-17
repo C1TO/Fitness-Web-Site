@@ -17,27 +17,17 @@
                     </h:column>
 
                     <h:column>
-                        <f:facet name="header">Üye Adı</f:facet>
-                            #{bilgi.uye.ad}
+                        <f:facet name="header">Üye Adı Soyadı</f:facet>
+                            #{bilgi.uye.uye_ad} #{bilgi.uye.uye_soyad}
                     </h:column>
+
                     <h:column>
-                        <f:facet name="header">Üye Soyadı</f:facet>
-                            #{bilgi.uye.soyad}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Kart Numarası</f:facet>
-                            #{bilgi.uye.kart_no}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Alınan Eğitim</f:facet>
-                            #{bilgi.egitim.egitim_adi}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Başlangıç Tarihi</f:facet>
+                        <f:facet name="header">Başlangıç Tarih</f:facet>
                             #{bilgi.baslangic_tarihi}
                     </h:column>
+
                     <h:column>
-                        <f:facet name="header">Bitiş Tarihi</f:facet>
+                        <f:facet name="header">Bitiş Tarih</f:facet>
                             #{bilgi.bitis_tarihi}
                     </h:column>
 

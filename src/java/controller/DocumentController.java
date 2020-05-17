@@ -8,12 +8,14 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.util.List;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
+
 import javax.inject.Named;
 import javax.servlet.http.Part;
 
+
 @Named
-@SessionScoped
+@ViewScoped
 public class DocumentController implements Serializable {
 
     private Document document;
@@ -22,20 +24,10 @@ public class DocumentController implements Serializable {
     private String bul = "";
     private Part doc;
 
-    private final String uploadTo = "/Users/sebat/OneDrive/Belgeler/Projeler/FitnessSalon/web/upload/";
-
-    public String getFileName(Part part) {
-        for (String cd : part.getHeader("content-disposition").split(":")) {
-            if (cd.trim().startsWith("filename")) {
-                String filename = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
-                return filename;
-            }
-        }
-        return "";
-    }
+    private String uploadTo = "C:\\Users\\sebat\\OneDrive\\Belgeler\\NetBeansProjects\\Fitness-Web-Site\\web\\upload\\";
 
     private int page = 1;
-    private int pageSize = 6;
+    private int pageSize = 4;
     private int pageCount;
 
     public void ileri() {
@@ -80,10 +72,10 @@ public class DocumentController implements Serializable {
     }
 
     public void upload() {
-        try {
-            InputStream input = doc.getInputStream();
-            File f = new File(uploadTo+getFileName(doc));
-            Files.copy(input, f.toPath());
+        try (InputStream input = doc.getInputStream()) {
+            String fileName = doc.getSubmittedFileName();
+            File f = new File(uploadTo,fileName);
+            Files.copy(input,f.toPath());
 
             document = this.getDocument();
             document.setFilePath(f.getParent());

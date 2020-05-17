@@ -18,7 +18,7 @@
         <br/>
 
         <div class = "form-group" >
-            <h:commandButton rendered="#{documentController.document.document_id == 0}" styleClass="btn btn-outline-info" style="margin-left: 5px;" value="Dosyayı Yükle" action="#{documentController.upload()}">                       
+            <h:commandButton  styleClass="btn btn-outline-info" style="margin-left: 5px;" value="Dosyayı Yükle" action="#{documentController.upload()}">                       
                 <f:ajax execute="document-form" render="document-form document-table"/>
             </h:commandButton>     
         </div>

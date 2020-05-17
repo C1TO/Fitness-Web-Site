@@ -20,12 +20,6 @@
                 <f:selectItems value="#{uyeController.uyelist}" var="uye" itemValue="#{uye}" itemLabel="#{uye.uye_ad} #{uye.uye_soyad}"/>
             </h:selectOneMenu>
             <br/><br/>
-            <label for="selectEgitim"  style="font-size: 18px">Alınan Eğitim</label>
-            <h:selectOneMenu styleClass="custom-select col-lg-12 p-1" id="selectEgitim" value="#{bilgiIslemController.bilgiıslem.egitim}" converter="egitimConverter" >
-                <f:selectItems value="#{egitimController.egitim_list}" var="egitim" itemValue="#{egitim}" itemLabel="#{egitim.egitim_adi}"/>
-            </h:selectOneMenu>
-
-            <br/><br/>
             <h:inputText styleClass="form-control" a:placeholder="Başlangıç Tarihi" value="#{bilgiIslemController.bilgiıslem.baslangic_tarihi}"/>
 
             <br/>

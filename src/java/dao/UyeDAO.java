@@ -19,36 +19,33 @@ public class UyeDAO extends SuperDAO {
 
     public void insert(Uye uye) {
         try {
-            if (uye.getUye_mail().equals(mailarama(uye.getUye_mail()))) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Bu Üyelik Bulunmaktadır. Şifrenizi unuttuysanız şifremi unuttum bölümünden bulabilirsiniz."));
-            } else {
-                pst = this.getConnection().prepareStatement("insert into uyeler (uye_ad,uye_soyad,uye_cinsiyet,uye_tel,uye_yas,uye_mail,uye_kartno,admin,sifre) values (?,?,?,?,?,?,?,0,?)");
-                pst.setString(1, uye.getUye_ad());
-                pst.setString(2, uye.getUye_soyad());
-                pst.setString(3, uye.getUye_cinsiyet());
-                pst.setString(4, uye.getUye_tel());
-                pst.setInt(5, uye.getUye_yas());
-                pst.setString(6, uye.getUye_mail());
-                pst.setString(7, uye.getKart_no());
-                pst.setString(8, uye.getSifre());
-                pst.executeUpdate();
-                pst.close();
-                pst = this.getConnection().prepareStatement("select uye_id from uyeler where kullanici_tel=?");
-                pst.setString(1, uye.getUye_tel());
-                rs = pst.executeQuery();
-                int uye_id = 0;
-                if (rs.next()) {
-                    uye_id = rs.getInt(1);
-                }
 
-                for (Egitim egitim : uye.getAlegitim()) {
-                    pst = this.getConnection().prepareStatement("insert into alinan_egitim(egitim_id,uye_id) values(?,?)");
-                    pst.setInt(1, egitim.getEgitim_id());
-                    pst.setInt(2, uye_id);
-                    pst.executeUpdate();
-                }
-                pst.close();
+            pst = this.getConnection().prepareStatement("insert into uyeler (uye_ad,uye_soyad,uye_cinsiyet,uye_tel,uye_yas,uye_mail,uye_kartno,admin,sifre) values (?,?,?,?,?,?,?,0,?)");
+            pst.setString(1, uye.getUye_ad());
+            pst.setString(2, uye.getUye_soyad());
+            pst.setString(3, uye.getUye_cinsiyet());
+            pst.setString(4, uye.getUye_tel());
+            pst.setInt(5, uye.getUye_yas());
+            pst.setString(6, uye.getUye_mail());
+            pst.setString(7, uye.getKart_no());
+            pst.setString(8, uye.getSifre());
+            pst.executeUpdate();
+            pst.close();
+            pst = this.getConnection().prepareStatement("select uye_id from uyeler where kullanici_tel=?");
+            pst.setString(1, uye.getUye_tel());
+            rs = pst.executeQuery();
+            int uye_id = 0;
+            if (rs.next()) {
+                uye_id = rs.getInt(1);
             }
+
+            for (Egitim egitim : uye.getAlegitim()) {
+                pst = this.getConnection().prepareStatement("insert into alinan_egitim(egitim_id,uye_id) values(?,?)");
+                pst.setInt(1, egitim.getEgitim_id());
+                pst.setInt(2, uye_id);
+                pst.executeUpdate();
+            }
+            pst.close();
 
         } catch (SQLException ex) {
             System.out.println("UyeDAO HATA(Create) : " + ex.getMessage());
@@ -202,129 +199,24 @@ public class UyeDAO extends SuperDAO {
     public void setEgitimdao(EgitimDAO egitimdao) {
         this.egitimdao = egitimdao;
     }
-    
+
     /* ----------------------------------------------------------------------------------------------------------------------------------------------------- */
-    
-    public String mailarama(String deger) {
-        Uye uye = null;
-        String gelenmail;
-        try {
-            pst = this.getConnection().prepareStatement("select * from uyeler where uye_mail=?");
-            pst.setString(1, deger);
-            rs = pst.executeQuery();
-
-            while (rs.next()) {
-                uye = new Uye();
-                uye.setUye_id(rs.getInt("uye_id"));
-                uye.setUye_ad(rs.getString("uye_ad"));
-                uye.setUye_soyad(rs.getString("uye_soyad"));
-                uye.setUye_cinsiyet(rs.getString("uye_cinsiyet"));
-                uye.setUye_yas(rs.getInt("uye_yas"));
-                uye.setUye_tel(rs.getString("uye_tel"));
-                uye.setUye_mail(rs.getString("uye_mail"));
-                uye.setKart_no(rs.getString("uye_kartno"));
-                uye.setSifre(rs.getString("sifre"));
-                uye.setAlegitim(this.getEgitimdao().getAlinanEgitim(uye.getUye_id()));
-            }
-        } catch (SQLException ex) {
-            System.out.println(" UyeDAO HATA(mailarama): " + ex.getMessage());
-        }
-        gelenmail = uye.getUye_mail();
-        return gelenmail;
-    }
-
-    public String sifre(String deger) {
-        Uye uye = null;
-        String gelensifre;
-        try {
-            pst = this.getConnection().prepareStatement("select * from uyeler where uye_tel=?");
-            pst.setString(1, deger);
-            rs = pst.executeQuery();
-            while (rs.next()) {
-                uye = new Uye();
-                uye.setUye_id(rs.getInt("uye_id"));
-                uye.setUye_ad(rs.getString("uye_ad"));
-                uye.setUye_soyad(rs.getString("uye_soyad"));
-                uye.setUye_cinsiyet(rs.getString("uye_cinsiyet"));
-                uye.setUye_yas(rs.getInt("uye_yas"));
-                uye.setUye_tel(rs.getString("uye_tel"));
-                uye.setUye_mail(rs.getString("uye_mail"));
-                uye.setKart_no(rs.getString("uye_kartno"));
-                uye.setSifre(rs.getString("sifre"));
-                uye.setAlegitim(this.getEgitimdao().getAlinanEgitim(uye.getUye_id()));
-            }
-        } catch (SQLException ex) {
-            System.out.println(" UyeDAO HATA(sifre): " + ex.getMessage());
-        }
-        gelensifre = uye.getSifre();
-        return gelensifre;
-    }
-
-    public String telarama(String deger) {
-        Uye uye = null;
-        String gelentel;
-        try {
-            pst = this.getConnection().prepareStatement("select * from uyeler where uye_tel=?");
-            pst.setString(1, deger);
-            rs = pst.executeQuery();
-            while (rs.next()) {
-                uye = new Uye();
-                uye.setUye_id(rs.getInt("uye_id"));
-                uye.setUye_ad(rs.getString("uye_ad"));
-                uye.setUye_soyad(rs.getString("uye_soyad"));
-                uye.setUye_cinsiyet(rs.getString("uye_cinsiyet"));
-                uye.setUye_yas(rs.getInt("uye_yas"));
-                uye.setUye_tel(rs.getString("uye_tel"));
-                uye.setUye_mail(rs.getString("uye_mail"));
-                uye.setKart_no(rs.getString("uye_kartno"));
-                uye.setSifre(rs.getString("sifre"));
-                uye.setAlegitim(this.getEgitimdao().getAlinanEgitim(uye.getUye_id()));
-            }
-        } catch (SQLException ex) {
-            System.out.println(" UyeDAO HATA(telarama): " + ex.getMessage());
-        }
-        gelentel = uye.getUye_tel();
-        return gelentel;
-    }
-
     public void Kayitol(Uye uye) {
         try {
-            if (uye.getUye_mail().equals(mailarama(uye.getUye_mail()))) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Bu Üyelik Bulunmaktadır.Şifrenizi unuttuysanız şifremi unuttum bölümünden bulabilirsiniz."));
-            } else {
-                pst = this.getConnection().prepareStatement("insert into uyeler (uye_ad,uye_soyad,uye_cinsiyet,uye_tel,uye_yas,uye_mail,uye_kartno,admin,sifre) values (?,?,?,?,?,?,?,0,?)");
-                pst.setString(1, uye.getUye_ad());
-                pst.setString(2, uye.getUye_soyad());
-                pst.setString(3, uye.getUye_cinsiyet());
-                pst.setString(4, uye.getUye_tel());
-                pst.setInt(5, uye.getUye_yas());
-                pst.setString(6, uye.getUye_mail());
-                pst.setString(7, uye.getKart_no());
-                pst.setString(8, uye.getSifre());
-                pst.executeUpdate();
-                pst.close();
-            }
+
+            pst = this.getConnection().prepareStatement("insert into uyeler (uye_ad,uye_soyad,uye_cinsiyet,uye_tel,uye_yas,uye_mail,admin,sifre) values (?,?,?,?,?,?,0,?)");
+            pst.setString(1, uye.getUye_ad());
+            pst.setString(2, uye.getUye_soyad());
+            pst.setString(3, uye.getUye_cinsiyet());
+            pst.setString(4, uye.getUye_tel());
+            pst.setInt(5, uye.getUye_yas());
+            pst.setString(6, uye.getUye_mail());
+            pst.setString(7, uye.getSifre());
+            pst.executeUpdate();
+            pst.close();
+
         } catch (SQLException ex) {
             System.out.println("UyeDAO HATA(Kayitol) : " + ex.getMessage());
-        }
-    }
-
-    public void sifremiunuttum(Uye uye) {
-        if (uye.getUye_mail().equals(mailarama(uye.getUye_mail())) && uye.getUye_tel().equals(telarama(uye.getUye_tel()))) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(" Şifreniz : " + sifre(uye.getUye_tel())));
-        } else {
-            if (!uye.getUye_mail().equals(mailarama(uye.getUye_mail())) && uye.getUye_tel().equals(telarama(uye.getUye_tel()))) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("E-Mail Adresiniz Yanlış"));
-            } else {
-                if (!uye.getUye_tel().equals(telarama(uye.getUye_tel())) && uye.getUye_mail().equals(mailarama(uye.getUye_mail()))) {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Telefon Numaranız Yanlış"));
-                }
-                else
-                {
-                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Bilgileriniz Yanlış"));
-                }
-
-            }
         }
     }
 

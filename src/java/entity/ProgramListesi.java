@@ -63,4 +63,32 @@ public class ProgramListesi {
         this.egitim = egitim;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + this.program_id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ProgramListesi other = (ProgramListesi) obj;
+        if (this.program_id != other.program_id) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "ProgramListesi{" + "program_id=" + program_id + ", hareket_adi=" + hareket_adi + ", tekrar_sayisi=" + tekrar_sayisi + ", hareket_bolgesi=" + hareket_bolgesi + ", egitim=" + egitim + '}';
+    }
+
+    
 }

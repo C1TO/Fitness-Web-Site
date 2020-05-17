@@ -25,18 +25,24 @@ public class DiyetListesiController implements Serializable {
     private int pageSize = 6;
     private int pageCount;
 
-    public void ileri(){
-        if (this.page ==this.getPageCount()) 
-            this.page=1;
-        else
-        this.page++;
+    public void ileri() {
+        if (this.page == this.getPageCount()) {
+            this.page = 1;
+        } else {
+            this.page++;
+        }
+        this.clearForm();
     }
-    public void geri(){
-        if (this.page==1) 
-            this.page=this.getPageCount();
-        else
-        this.page--;
+
+    public void geri() {
+        if (this.page == 1) {
+            this.page = this.getPageCount();
+        } else {
+            this.page--;
+        }
+         this.clearForm();
     }
+
 
     public int getPage() {
         return page;

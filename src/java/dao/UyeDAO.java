@@ -31,7 +31,7 @@ public class UyeDAO extends SuperDAO {
             pst.setString(8, uye.getSifre());
             pst.executeUpdate();
             pst.close();
-            pst = this.getConnection().prepareStatement("select uye_id from uyeler where kullanici_tel=?");
+            pst = this.getConnection().prepareStatement("select uye_id from uyeler where uye_tel=?");
             pst.setString(1, uye.getUye_tel());
             rs = pst.executeQuery();
             int uye_id = 0;
@@ -217,6 +217,97 @@ public class UyeDAO extends SuperDAO {
 
         } catch (SQLException ex) {
             System.out.println("UyeDAO HATA(Kayitol) : " + ex.getMessage());
+        }
+    }
+
+    public String mailarama(String deger) {
+        Uye uye = null;
+        String gelenmail;
+        try {
+            pst = this.getConnection().prepareStatement("select * from uyeler where uye_mail=?");
+            pst.setString(1, deger);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                uye = new Uye();
+                uye.setUye_id(rs.getInt("uye_id"));
+                uye.setUye_ad(rs.getString("uye_ad"));
+                uye.setUye_soyad(rs.getString("uye_soyad"));
+                uye.setUye_cinsiyet(rs.getString("uye_cinsiyet"));
+                uye.setUye_yas(rs.getInt("uye_yas"));
+                uye.setUye_tel(rs.getString("uye_tel"));
+                uye.setUye_mail(rs.getString("uye_mail"));
+                uye.setKart_no(rs.getString("uye_kartno"));
+                uye.setSifre(rs.getString("sifre"));
+                uye.setAlegitim(this.getEgitimdao().getAlinanEgitim(uye.getUye_id()));
+            }
+        } catch (SQLException ex) {
+            System.out.println(" UyeDAO HATA(mailarama): " + ex.getMessage());
+        }
+        gelenmail = uye.getUye_mail();
+        return gelenmail;
+    }
+
+    public String sifre(String deger) {
+        Uye uye = null;
+        String gelensifre;
+        try {
+            pst = this.getConnection().prepareStatement("select * from uyeler where uye_tel=?");
+            pst.setString(1, deger);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                uye = new Uye();
+                uye.setUye_id(rs.getInt("uye_id"));
+                uye.setUye_ad(rs.getString("uye_ad"));
+                uye.setUye_soyad(rs.getString("uye_soyad"));
+                uye.setUye_cinsiyet(rs.getString("uye_cinsiyet"));
+                uye.setUye_yas(rs.getInt("uye_yas"));
+                uye.setUye_tel(rs.getString("uye_tel"));
+                uye.setUye_mail(rs.getString("uye_mail"));
+                uye.setKart_no(rs.getString("uye_kartno"));
+                uye.setSifre(rs.getString("sifre"));
+                uye.setAlegitim(this.getEgitimdao().getAlinanEgitim(uye.getUye_id()));
+            }
+        } catch (SQLException ex) {
+            System.out.println(" UyeDAO HATA(sifre): " + ex.getMessage());
+        }
+        gelensifre = uye.getSifre();
+        return gelensifre;
+    }
+
+    public String telarama(String deger) {
+        Uye uye = null;
+        String gelentel;
+        try {
+            pst = this.getConnection().prepareStatement("select * from uyeler where uye_tel=?");
+            pst.setString(1, deger);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                uye = new Uye();
+                uye.setUye_id(rs.getInt("uye_id"));
+                uye.setUye_ad(rs.getString("uye_ad"));
+                uye.setUye_soyad(rs.getString("uye_soyad"));
+                uye.setUye_cinsiyet(rs.getString("uye_cinsiyet"));
+                uye.setUye_yas(rs.getInt("uye_yas"));
+                uye.setUye_tel(rs.getString("uye_tel"));
+                uye.setUye_mail(rs.getString("uye_mail"));
+                uye.setKart_no(rs.getString("uye_kartno"));
+                uye.setSifre(rs.getString("sifre"));
+                uye.setAlegitim(this.getEgitimdao().getAlinanEgitim(uye.getUye_id()));
+            }
+        } catch (SQLException ex) {
+            System.out.println(" UyeDAO HATA(telarama): " + ex.getMessage());
+        }
+        gelentel = uye.getUye_tel();
+        return gelentel;
+    }
+
+    public void sifremiunuttum(Uye uye) {
+        if (uye.getUye_mail().equals(mailarama(uye.getUye_mail())) && uye.getUye_tel().equals(telarama(uye.getUye_tel()))) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(" Şifreniz : " + sifre(uye.getUye_tel())));
+        } else
+        {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Bilgileriniz Yanlış"));
         }
     }
 

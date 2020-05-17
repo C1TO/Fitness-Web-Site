@@ -25,12 +25,13 @@ public class UyeController implements Serializable {
     private int pageSize = 4;
     private int pageCount;
 
-    public void ileri() {
+  public void ileri() {
         if (this.page == this.getPageCount()) {
             this.page = 1;
         } else {
             this.page++;
         }
+        this.clearForm();
     }
 
     public void geri() {
@@ -39,6 +40,7 @@ public class UyeController implements Serializable {
         } else {
             this.page--;
         }
+         this.clearForm();
     }
 
     public int getPage() {
@@ -74,6 +76,11 @@ public class UyeController implements Serializable {
         this.uye = new Uye();
     }
 
+    public void sifremiunuttum() {
+        this.getUyedao().sifremiunuttum(this.uye);
+        this.clearForm();
+    }
+
     public void create() {
         this.getUyedao().insert(this.uye);
         this.clearForm();
@@ -83,8 +90,6 @@ public class UyeController implements Serializable {
         this.getUyedao().Kayitol(this.uye);
         this.clearForm();
     }
-
-  
 
     public void delete() {
         this.getUyedao().delete(this.uye);

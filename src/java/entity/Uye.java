@@ -122,4 +122,31 @@ public class Uye {
         this.alegitim = alegitim;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + this.uye_id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Uye other = (Uye) obj;
+        if (this.uye_id != other.uye_id) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Uye{" + "uye_id=" + uye_id + ", uye_ad=" + uye_ad + ", uye_soyad=" + uye_soyad + ", uye_cinsiyet=" + uye_cinsiyet + ", uye_tel=" + uye_tel + ", uye_yas=" + uye_yas + ", uye_mail=" + uye_mail + ", kart_no=" + kart_no + ", admin=" + admin + ", sifre=" + sifre + ", alegitim=" + alegitim + '}';
+    }
+
 }

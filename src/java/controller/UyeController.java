@@ -25,7 +25,7 @@ public class UyeController implements Serializable {
     private int pageSize = 4;
     private int pageCount;
 
-  public void ileri() {
+    public void ileri() {
         if (this.page == this.getPageCount()) {
             this.page = 1;
         } else {
@@ -40,7 +40,7 @@ public class UyeController implements Serializable {
         } else {
             this.page--;
         }
-         this.clearForm();
+        this.clearForm();
     }
 
     public int getPage() {
@@ -86,9 +86,10 @@ public class UyeController implements Serializable {
         this.clearForm();
     }
 
-    public void kayitol() {
+    public String kayitol() {
         this.getUyedao().Kayitol(this.uye);
         this.clearForm();
+        return "/index?faces-redirect=true";
     }
 
     public void delete() {
@@ -109,8 +110,6 @@ public class UyeController implements Serializable {
     public void setFull_list(List<Uye> full_list) {
         this.full_list = full_list;
     }
-    
-    
 
     public List<Uye> getUyelist() {
         this.uyelist = this.getUyedao().findAll(this.bul, page, pageSize);

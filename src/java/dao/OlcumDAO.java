@@ -104,7 +104,7 @@ public class OlcumDAO extends SuperDAO {
         }
     }
 
-    public int count() {
+    public int count() { // istenilen tablonun veri sayısını döndüren metod
         int count = 0;
 
         try {

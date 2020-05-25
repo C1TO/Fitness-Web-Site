@@ -50,7 +50,7 @@ public class ProgramListesiDAO extends SuperDAO {
 
         try {
             pst = this.getConnection().prepareStatement("select * from program_listesi where  hareket_adi like ? order by por_liste_id asc limit " + start + " , " + pageSize);
-            pst.setString(1, "%" + deger + "%");
+            pst.setString(1, "%" + deger + "%"); // ara çubuğuna girilen herhangi bir değeri içeren bütün bilgileri getirmek için "%" + deger + "%" bu şekilde kullandık.
 
             rs = pst.executeQuery();
             while (rs.next()) {

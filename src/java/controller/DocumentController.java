@@ -20,11 +20,12 @@ public class DocumentController implements Serializable {
 
     private Document document;
     private List<Document> documentList;
+    private List<Document> fullList;
     private DocumentDAO documentDAO;
     private String bul = "";
     private Part doc;
 
-    private String uploadTo = "C:\\Users\\sebat\\OneDrive\\Belgeler\\NetBeansProjects\\Fitness-Web-Site\\web\\upload\\";
+    private String uploadTo = "C:\\Users\\sebat\\OneDrive\\Belgeler\\NetBeansProjects\\Fitness-Web-Site\\web\\upload\\"; // dosyaların kaydedileceği adres
 
     private int page = 1;
     private int pageSize = 4;
@@ -111,8 +112,6 @@ public class DocumentController implements Serializable {
         this.bul = bul;
     }
 
-    public DocumentController() {
-    }
 
     public Document getDocument() {
         if (this.document == null) {
@@ -133,6 +132,16 @@ public class DocumentController implements Serializable {
     public void setDocumentList(List<Document> documentList) {
         this.documentList = documentList;
     }
+
+    public List<Document> getFullList() {
+        this.fullList = this.getDocumentDAO().findAll();
+        return fullList;
+    }
+
+    public void setFullList(List<Document> fullList) {
+        this.fullList = fullList;
+    }
+    
 
     public DocumentDAO getDocumentDAO() {
         if (this.documentDAO == null) {

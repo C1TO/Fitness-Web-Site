@@ -39,7 +39,7 @@ public class UyeDAO extends SuperDAO {
                 uye_id = rs.getInt(1);
             }
 
-            for (Egitim egitim : uye.getAlegitim()) {
+            for (Egitim egitim : uye.getAlegitim()) { // bu foreach döngüsü many to many ilişkisine ekleme yapılması için kullanılıyor
                 pst = this.getConnection().prepareStatement("insert into alinan_egitim(egitim_id,uye_id) values(?,?)");
                 pst.setInt(1, egitim.getEgitim_id());
                 pst.setInt(2, uye_id);
@@ -64,12 +64,12 @@ public class UyeDAO extends SuperDAO {
         }
     }
 
-    public List<Uye> findAll(String deger, int page, int pageSize) {
+    public List<Uye> findAll(String deger, int page, int pageSize) { //bu findall metodu tablo'da kullanılıyor
         List<Uye> ulist = new ArrayList();
         int start = (page - 1) * pageSize;
         try {
             pst = this.getConnection().prepareStatement("SELECT * FROM uyeler where  uye_ad like ? or uye_soyad  like ? order by uye_id asc limit " + start + " , " + pageSize);
-            pst.setString(1, "%" + deger + "%");
+            pst.setString(1, "%" + deger + "%"); // ara çubuğuna girilen herhangi bir değeri içeren bütün bilgileri getirmek için "%" + deger + "%" bu şekilde kullandık.
             pst.setString(2, "%" + deger + "%");
 
             rs = pst.executeQuery();
@@ -95,7 +95,7 @@ public class UyeDAO extends SuperDAO {
         return ulist;
     }
     
-    public List<Uye> findAll() {
+    public List<Uye> findAll() { // bu findall metodu one to many ilişkisideki eklemeler de selectmenubox ın içinde kullanılıyor.Sayfalamada çıkan hatayı önlemek için yazıldı.
         List<Uye> uye_list = new ArrayList();
 
         try {
@@ -186,7 +186,7 @@ public class UyeDAO extends SuperDAO {
         }
     }
 
-    public List<Uye> AlinanEgitim(int egitim_id) {
+    public List<Uye> AlinanEgitim(int egitim_id) { // many to many ilişkisi için oluşturulmuş ilişki tablosunun listesi
         List<Uye> list = new ArrayList<>();
 
         try {
@@ -249,7 +249,7 @@ public class UyeDAO extends SuperDAO {
         }
     }
 
-    public String mailarama(String deger) {
+    public String mailarama(String deger) { // şifremi unuttum kısmında ki email adresi kontrolü için kullanılıyor
         Uye uye = null;
         String gelenmail;
         try {
@@ -277,7 +277,7 @@ public class UyeDAO extends SuperDAO {
         return gelenmail;
     }
 
-    public String sifre(String deger) {
+    public String sifre(String deger) { // girilen telefon numarasına göre şifreyi döndürmek için kullanılıyor
         Uye uye = null;
         String gelensifre;
         try {
@@ -304,7 +304,7 @@ public class UyeDAO extends SuperDAO {
         return gelensifre;
     }
 
-    public String telarama(String deger) {
+    public String telarama(String deger) { // şifremi unuttum kısmında telefon numarasını doğrulamak için kullanılıyor
         Uye uye = null;
         String gelentel;
         try {
@@ -331,13 +331,10 @@ public class UyeDAO extends SuperDAO {
         return gelentel;
     }
 
-    public void sifremiunuttum(Uye uye) {
+    public void sifremiunuttum(Uye uye) { // yukarıda ki telarama ve mailarama metodlarında gelen değer doğru ise şifreyi gösterecek metod
         if (uye.getUye_mail().equals(mailarama(uye.getUye_mail())) && uye.getUye_tel().equals(telarama(uye.getUye_tel()))) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(" Şifreniz : " + sifre(uye.getUye_tel())));
-        } else
-        {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Bilgileriniz Yanlış"));
-        }
+        } 
     }
 
 }

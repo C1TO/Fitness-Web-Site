@@ -23,7 +23,7 @@ public class BilgiIslemController implements Serializable {
     private int pageSize = 6;
     private int pageCount;
 
-    public void ileri() {
+    public void ileri() { 
         if (this.page == this.getPageCount()) {
             this.page = 1;
         } else {

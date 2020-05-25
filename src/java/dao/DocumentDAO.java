@@ -43,13 +43,34 @@ public class DocumentDAO extends SuperDAO {
         }
     }
 
-    public List<Document> findAll(String deger, int page, int pageSize) {
+    public List<Document> findAll(String deger, int page, int pageSize) { //bu findall metodu tablo'da kullanılıyor
         List<Document> dList = new ArrayList<>();
         int start = (page - 1) * pageSize;
         try {
             pst = this.getConnection().prepareStatement("select*from document where filename like ? or filetype like ? order by document_id asc limit " + start + " , " + pageSize);
-            pst.setString(1, "%" + deger + "%");
+            pst.setString(1, "%" + deger + "%");  // ara çubuğuna girilen herhangi bir değeri içeren bütün bilgileri getirmek için "%" + deger + "%" bu şekilde kullandık.
             pst.setString(2, "%" + deger + "%");
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                Document d = new Document();
+                d.setDocument_id(rs.getInt("document_id"));
+                d.setFilePath(rs.getString("filepath"));
+                d.setFileName(rs.getString("filename"));
+                d.setFileType(rs.getString("filetype"));
+                dList.add(d);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return dList;
+    }
+    
+    public List<Document> findAll() { // bu findall metodu one to many ilişkisideki eklemeler de selectmenubox ın içinde kullanılıyor.Sayfalamada çıkan hatayı önlemek için yazıldı.
+        List<Document> dList = new ArrayList<>();
+       
+        try {
+            pst = this.getConnection().prepareStatement("select*from document ");
+
             rs = pst.executeQuery();
             while (rs.next()) {
                 Document d = new Document();

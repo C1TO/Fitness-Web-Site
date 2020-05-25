@@ -35,7 +35,7 @@
 
             <label for="dosya">Dosya</label>
             <h:selectOneMenu  styleClass="custom-select" id="dosya" value="#{egitimController.egitim.document}" converter="dosyaConverter" >
-                <f:selectItems value="#{egitimController.documentlist}" var="document" itemValue="#{document}" itemLabel="#{document.fileName}"/>
+                <f:selectItems value="#{egitimController.documentController.fullList}" var="document" itemValue="#{document}" itemLabel="#{document.fileName}"/>
             </h:selectOneMenu>                            
         </div>    
 

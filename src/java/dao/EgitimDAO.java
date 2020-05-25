@@ -44,12 +44,12 @@ public class EgitimDAO extends SuperDAO {
         }
     }
 
-    public List<Egitim> findAll(String deger, int page, int pageSize) {
+    public List<Egitim> findAll(String deger, int page, int pageSize) {  //bu findall metodu tablo'da kullanılıyor
         List<Egitim> egitimlist = new ArrayList();
         int start = (page - 1) * pageSize;
         try {
-            pst = this.getConnection().prepareStatement("select * from egitimler where egitim_adi like ? order by egitim_id asc limit " + start + " , " + pageSize);
-            pst.setString(1, "%" + deger + "%");
+            pst = this.getConnection().prepareStatement("select * from egitimler where egitim_adi like ? order by egitim_adi asc limit " + start + " , " + pageSize);
+            pst.setString(1, "%" + deger + "%"); // ara çubuğuna girilen herhangi bir değeri içeren bütün bilgileri getirmek için "%" + deger + "%" bu şekilde kullandık.
 
             rs = pst.executeQuery();
             while (rs.next()) {
@@ -133,7 +133,7 @@ public class EgitimDAO extends SuperDAO {
         }
     }
 
-    public List<Egitim> findAll() {
+    public List<Egitim> findAll() { // bu findall metodu one to many ilişkisideki eklemeler de selectmenubox ın içinde kullanılıyor.Sayfalamada çıkan hatayı önlemek için yazıldı.
         List<Egitim> Elist = new ArrayList<>();
 
         try {

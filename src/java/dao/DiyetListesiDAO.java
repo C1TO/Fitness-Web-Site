@@ -50,7 +50,7 @@ public class DiyetListesiDAO extends SuperDAO {
 
         try {
             pst = this.getConnection().prepareStatement("select * from diyet_listesi where yemek_ismi like ? order by diy_listesi_id asc limit " + start + " , " + pageSize);
-            pst.setString(1, "%" + deger + "%");
+            pst.setString(1, "%" + deger + "%"); // ara çubuğuna girilen herhangi bir değeri içeren bütün bilgileri getirmek için "%" + deger + "%" bu şekilde kullandık.
 
             rs = pst.executeQuery();
 

@@ -39,7 +39,7 @@ public class BilgiIslemDAO extends SuperDAO {
         }
     }
 
-    public List<BilgiIslem> findAll(int page, int pageSize) {
+    public List<BilgiIslem> findAll(int page, int pageSize) { 
         List<BilgiIslem> bilgilist = new ArrayList();
         int start = (page - 1) * pageSize;
 

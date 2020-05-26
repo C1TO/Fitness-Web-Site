@@ -22,7 +22,7 @@ Many to many ilişkisi üyeler ve eğitimler arasında alınan eğitim olarak uy
 Dosya yükleme kısmında dosyacontroller da uplaodto diyerek dosyanın yükleneceği konumu göstermiştik.Projenin dosya kısmı çalışması için o yolu kendi bilgisayarınıza göre değiştirmeniz gerekmektedir.
 
 
-
+Şifremi unuttum kısmında çalışması için yazılan kodlar uyedao sınıfında bulunmaktadır.
 
 
 

@@ -49,7 +49,7 @@ HTML tarafında bilgi işlemde alınan eğitim sütunlarında bu ilişkiyi göre
 
 # Dosya İşlemleri
 
-dosyaController sınıfı içinde yazılmış olan "String uploadTo" dosya yolunu içinde bulunan upload klasörünün dosya yolu ile  değişiniz.
+dosyaController sınıfı içinde yazılmış olan "uploadTo" dosya yolunu içinde bulunan upload klasörünün dosya yolu ile  değişiniz.
 
 # Şifremi Unuttum 
 

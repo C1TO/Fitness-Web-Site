@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 -- Sunucu:                       127.0.0.1
--- Sunucu sürümü:                10.5.2-MariaDB - mariadb.org binary distribution
+-- Sunucu sürümü:                10.4.11-MariaDB - mariadb.org binary distribution
 -- Sunucu İşletim Sistemi:       Win64
 -- HeidiSQL Sürüm:               10.2.0.5599
 -- --------------------------------------------------------
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `alinan_egitim` (
   CONSTRAINT `alinan_uye_id_fk` FOREIGN KEY (`uye_id`) REFERENCES `uyeler` (`uye_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
--- salon.alinan_egitim: ~19 rows (yaklaşık) tablosu için veriler indiriliyor
+-- salon.alinan_egitim: ~21 rows (yaklaşık) tablosu için veriler indiriliyor
 /*!40000 ALTER TABLE `alinan_egitim` DISABLE KEYS */;
 INSERT INTO `alinan_egitim` (`alinan_id`, `egitim_id`, `uye_id`) VALUES
 	(1, 7, 3),
@@ -100,9 +100,9 @@ CREATE TABLE IF NOT EXISTS `document` (
   `filename` text NOT NULL,
   `filetype` text NOT NULL,
   PRIMARY KEY (`document_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
--- salon.document: ~6 rows (yaklaşık) tablosu için veriler indiriliyor
+-- salon.document: ~7 rows (yaklaşık) tablosu için veriler indiriliyor
 /*!40000 ALTER TABLE `document` DISABLE KEYS */;
 INSERT INTO `document` (`document_id`, `filepath`, `filename`, `filetype`) VALUES
 	(1, 'C:\\Users\\sebat\\OneDrive\\Belgeler\\NetBeansProjects\\Fitness-Web-Site\\web\\upload', 'zumba.jpg', 'image/jpeg'),
@@ -110,7 +110,8 @@ INSERT INTO `document` (`document_id`, `filepath`, `filename`, `filetype`) VALUE
 	(3, 'C:\\Users\\sebat\\OneDrive\\Belgeler\\NetBeansProjects\\Fitness-Web-Site\\web\\upload', 'pilates.jpg', 'image/jpeg'),
 	(5, 'C:\\Users\\sebat\\OneDrive\\Belgeler\\NetBeansProjects\\Fitness-Web-Site\\web\\upload', 'fitness.jpg', 'image/jpeg'),
 	(6, 'C:\\Users\\sebat\\OneDrive\\Belgeler\\NetBeansProjects\\Fitness-Web-Site\\web\\upload', 'boks.jfif', 'image/jpeg'),
-	(9, 'C:\\Users\\sebat\\OneDrive\\Belgeler\\NetBeansProjects\\Fitness-Web-Site\\web\\upload', 'muaythai.png', 'image/png');
+	(9, 'C:\\Users\\sebat\\OneDrive\\Belgeler\\NetBeansProjects\\Fitness-Web-Site\\web\\upload', 'muaythai.png', 'image/png'),
+	(11, 'C:\\Users\\sebat\\OneDrive\\Belgeler\\NetBeansProjects\\Fitness-Web-Site\\web\\upload', '4.jpg', 'image/jpeg');
 /*!40000 ALTER TABLE `document` ENABLE KEYS */;
 
 -- tablo yapısı dökülüyor salon.egitimler
@@ -128,7 +129,7 @@ CREATE TABLE IF NOT EXISTS `egitimler` (
   CONSTRAINT `egitim_egitmen_id_fk` FOREIGN KEY (`egitmen_id`) REFERENCES `egitmenler` (`egitmen_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
--- salon.egitimler: ~7 rows (yaklaşık) tablosu için veriler indiriliyor
+-- salon.egitimler: ~6 rows (yaklaşık) tablosu için veriler indiriliyor
 /*!40000 ALTER TABLE `egitimler` DISABLE KEYS */;
 INSERT INTO `egitimler` (`egitim_id`, `egitim_icerik`, `egitim_adi`, `egitim_ucret`, `egitmen_id`, `document_id`) VALUES
 	(4, 'Bedenin dengeli tutulmasına yardımcı olan ve omurgayı desteklemekte önemli işlevi olan temel kaslar üzerine yoğunlaşılan bir egzersiz programıdır', 'Pilates', '350 Tl', 3, 3),
@@ -153,7 +154,7 @@ CREATE TABLE IF NOT EXISTS `egitmenler` (
   PRIMARY KEY (`egitmen_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
--- salon.egitmenler: ~6 rows (yaklaşık) tablosu için veriler indiriliyor
+-- salon.egitmenler: ~7 rows (yaklaşık) tablosu için veriler indiriliyor
 /*!40000 ALTER TABLE `egitmenler` DISABLE KEYS */;
 INSERT INTO `egitmenler` (`egitmen_id`, `egitmen_ad`, `egitmen_soyad`, `egitmen_cinsiyet`, `egitmen_tel`, `egitmen_yas`, `egitmen_mail`, `egitmen_tecrube`, `uz_alan`) VALUES
 	(1, 'Ata', 'Doğan', 'Erkek', '05444620326', 25, 'ata.dn@gmail.com', '9 Yıl', 'Boks'),
@@ -222,13 +223,13 @@ CREATE TABLE IF NOT EXISTS `uyeler` (
   PRIMARY KEY (`uye_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
--- salon.uyeler: ~8 rows (yaklaşık) tablosu için veriler indiriliyor
+-- salon.uyeler: ~9 rows (yaklaşık) tablosu için veriler indiriliyor
 /*!40000 ALTER TABLE `uyeler` DISABLE KEYS */;
 INSERT INTO `uyeler` (`uye_id`, `uye_ad`, `uye_soyad`, `uye_cinsiyet`, `uye_tel`, `uye_yas`, `uye_mail`, `uye_kartno`, `admin`, `sifre`) VALUES
 	(1, 'admin', 'admin', 'admin', '1', 1, 'admin', 'admin', 1, 'admin'),
 	(2, 'Muhammed Anıl', 'Aldoğan', 'Erkek', '05326930104', 22, 'anil@gmail.com', '1E44', 0, '123456'),
 	(3, 'Mert Batuhan', 'İduğ', 'Erkek', '05362030123', 25, 'mert@gmail.com', '2E44', 0, '123456'),
-	(4, 'Ayşe', 'Fatma', 'Kadın', '05362300303', 29, 'ayse@gmail.com', '1K44', 0, '123456'),
+	(4, 'Ayşe', 'Fatma', 'Kadın', '05362300303', 29, 'ayse@gmail.com', '1K44', 0, 'ayseuye'),
 	(5, 'Sevda', 'Sarı', 'Kadın', '05393651214', 27, 'sevda@gmail.com', '2K44', 0, '123456'),
 	(6, 'Kuzey Ata', 'Doğan', 'Erkek', '05263542326', 22, 'kuzey@gmail.com', '3E44', 0, '12345'),
 	(7, 'Ali', 'Doyar', 'Erkek', '05321112544', 25, 'ali@gmail.com', '4E44', 0, '12345'),

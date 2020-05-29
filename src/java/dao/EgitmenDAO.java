@@ -82,14 +82,12 @@ public class EgitmenDAO extends SuperDAO {
         }
 
     }
-    
-      public List<Egitmen> findAll() {  // bu findall metodu one to many ilişkisideki eklemeler de selectmenubox ın içinde kullanılıyor.Sayfalamada çıkan hatayı önlemek için yazıldı.
+
+    public List<Egitmen> findAll() {  // bu findall metodu one to many ilişkisideki eklemeler de selectmenubox ın içinde kullanılıyor.Sayfalamada çıkan hatayı önlemek için yazıldı.
         List<Egitmen> egitmen_list = new ArrayList();
-  
 
         try {
             pst = this.getConnection().prepareStatement("SELECT * FROM egitmenler");
-
 
             rs = pst.executeQuery();
 

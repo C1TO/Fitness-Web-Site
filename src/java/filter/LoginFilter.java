@@ -1,6 +1,5 @@
 package filter;
 
-
 import entity.Uye;
 import java.io.IOException;
 import javax.servlet.Filter;
@@ -26,23 +25,21 @@ public class LoginFilter implements Filter {
         Uye k = (Uye) req.getSession().getAttribute("valid_user");
 
         if (k == null) {
-            if (url.contains("secret") || url.contains("logout")) {
-                res.sendRedirect(req.getContextPath() + "/login.xhtml");
+            if (url.contains("back_end") || url.contains("logout")) {
+                res.sendRedirect(req.getContextPath() + "/faces/index.xhtml");
             } else {
                 chain.doFilter(request, response);
             }
         } else {
-            if (url.contains("register") || url.contains("login")) {
-                res.sendRedirect(req.getContextPath() + "/secret/secret.xhtml");
+            if (url.contains("index") || url.contains("kayitol")) {
+                res.sendRedirect(req.getContextPath() + "/faces/back_end/egitim/egitim.xhtml");
             } else if (url.contains("logout")) {
                 req.getSession().invalidate();
-                res.sendRedirect(req.getContextPath() + "/index.xhtml");
+                res.sendRedirect(req.getContextPath() + "/faces/index.xhtml");
             } else {
                 chain.doFilter(request, response);
             }
-
         }
-
     }
 
     @Override

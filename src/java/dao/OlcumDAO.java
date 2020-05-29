@@ -47,7 +47,6 @@ public class OlcumDAO extends SuperDAO {
         try {
             pst = this.getConnection().prepareStatement("select * from olcum order by olcum_id asc limit " + start + " , " + pageSize);
 
-
             rs = pst.executeQuery();
             while (rs.next()) {
                 Olcum temp = new Olcum();

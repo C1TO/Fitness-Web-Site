@@ -161,6 +161,4 @@ public class Egitmen {
         return "Egitmen{" + "egitmen_ad=" + egitmen_ad + ", egitmen_soyad=" + egitmen_soyad + ", egitmen_cinsiyet=" + egitmen_cinsiyet + ", egitmen_yas=" + egitmen_yas + ", egitmen_cep_telefonu=" + egitmen_cep_telefonu + ", egitmen_email=" + egitmen_email + ", egitmen_id=" + egitmen_id + ", uz_alan=" + uz_alan + ", tecrube=" + tecrube + '}';
     }
 
-  
-
 }

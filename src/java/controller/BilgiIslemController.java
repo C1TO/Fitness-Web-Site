@@ -11,7 +11,7 @@ import javax.inject.Named;
 @Named
 @SessionScoped
 public class BilgiIslemController implements Serializable {
-//bilgi işlem controller
+
     private List<BilgiIslem> bilgi_list;
     private BilgiIslemDAO bilgidao;
     private BilgiIslem bilgi;
@@ -23,7 +23,7 @@ public class BilgiIslemController implements Serializable {
     private int pageSize = 6;
     private int pageCount;
 
-    public void ileri() { 
+    public void ileri() {
         if (this.page == this.getPageCount()) {
             this.page = 1;
         } else {
@@ -84,8 +84,8 @@ public class BilgiIslemController implements Serializable {
         this.getBilgidao().update(this.bilgi);
         this.clearForm();
     }
-    public void delete()
-    {
+
+    public void delete() {
         this.getBilgidao().delete(this.bilgi);
         this.clearForm();
     }

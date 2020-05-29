@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AlinanEgitimDAO extends SuperDAO {
-//alinan egitim dao
+
     PreparedStatement pst = null;
     ResultSet rs = null;
 

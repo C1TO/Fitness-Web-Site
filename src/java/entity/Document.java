@@ -89,7 +89,5 @@ public class Document {
     public String toString() {
         return "Document{" + "document_id=" + document_id + ", filePath=" + filePath + ", fileName=" + fileName + ", fileType=" + fileType + '}';
     }
-    
-    
 
 }

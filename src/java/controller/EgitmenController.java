@@ -109,7 +109,6 @@ public class EgitmenController implements Serializable {
         this.full_list = full_list;
     }
 
-    
     public List<Egitmen> getEgitmenlist() {
         this.egitmenlist = this.getEgitmendao().findAll(this.bul, page, pageSize);
         return egitmenlist;

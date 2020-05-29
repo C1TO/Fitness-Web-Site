@@ -90,5 +90,4 @@ public class ProgramListesi {
         return "ProgramListesi{" + "program_id=" + program_id + ", hareket_adi=" + hareket_adi + ", tekrar_sayisi=" + tekrar_sayisi + ", hareket_bolgesi=" + hareket_bolgesi + ", egitim=" + egitim + '}';
     }
 
-    
 }

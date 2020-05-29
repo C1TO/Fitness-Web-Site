@@ -9,6 +9,7 @@
     <div class="container" style="margin-top: 10px;">
         <div class="row" style="margin-top: 10px;">
             <h:form id="egitim-table">
+
                 <h:dataTable styleClass="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%" value="#{egitimController.egitim_list}" var="egitim">
 
                     <h:column>
@@ -19,8 +20,8 @@
                     <h:column rendered="#{sessionScope.valid_user.admin}">
                         <f:facet name="header">ID</f:facet>
                             #{egitim.egitim_id}
-
                     </h:column>
+
                     <h:column>
                         <f:facet name="header">Eğitim Adı</f:facet>
                             #{egitim.egitim_adi}
@@ -30,22 +31,27 @@
                         <f:facet name="header">İçerik</f:facet>
                             #{egitim.egitim_icerik}
                     </h:column>
+
                     <h:column>
                         <f:facet name="header">Eğitim Ücret</f:facet>
                             #{egitim.egitim_ucret}
                     </h:column>
+
                     <h:column>
                         <f:facet name="header">Sorumlu Öğretmen</f:facet>
                             #{egitim.egitmen.egitmen_ad}
                             #{egitim.egitmen.egitmen_soyad}
                     </h:column>
+
                     <h:column rendered="#{sessionScope.valid_user.admin}">
                         <f:facet name="header" >SEÇ</f:facet>
                         <h:commandButton styleClass="btn btn-sm btn-info" value="İşaretle" action="#{egitimController.updateForm(egitim)}">
                             <f:ajax render="egitim-table egitim-form" execute="@this" />
                         </h:commandButton>
                     </h:column>
+
                 </h:dataTable>
+
             </h:form> 
         </div>
     </div>

@@ -41,7 +41,7 @@ public class EgitimController implements Serializable {
         } else {
             this.page--;
         }
-         this.clearForm();
+        this.clearForm();
     }
 
     public int getPage() {
@@ -71,7 +71,7 @@ public class EgitimController implements Serializable {
 
     @Inject
     private EgitmenController egitmenController;
-     @Inject
+    @Inject
     private DocumentController documentController;
 
     public DocumentController getDocumentController() {
@@ -82,7 +82,6 @@ public class EgitimController implements Serializable {
         this.documentController = documentController;
     }
 
-     
     public EgitmenController getEgitmenController() {
         return egitmenController;
     }
@@ -130,8 +129,6 @@ public class EgitimController implements Serializable {
     public void setFull_list(List<Egitim> full_list) {
         this.full_list = full_list;
     }
-    
-    
 
     public List<Document> getDocumentlist() {
         this.documentlist = this.getDocumendao().findAll(this.bul, page, pageSize);
@@ -144,7 +141,7 @@ public class EgitimController implements Serializable {
 
     public DocumentDAO getDocumendao() {
         if (this.documendao == null) {
-            this.documendao = new DocumentDAO();    
+            this.documendao = new DocumentDAO();
         }
         return documendao;
     }
@@ -152,10 +149,7 @@ public class EgitimController implements Serializable {
     public void setDocumendao(DocumentDAO documendao) {
         this.documendao = documendao;
     }
-    
-    
 
-    
     public List<Egitim> getEgitim_list() {
         this.egitim_list = this.getEgitim_dao().findAll(this.bul, page, pageSize);
         return egitim_list;

@@ -21,9 +21,10 @@
             <br/>
             <h:inputText styleClass="form-control" value = "#{egitmenController.egitmen.egitmen_soyad}" a:placeholder="Eğitmen Soyadı" validator="#{egitmenvalidator.validateSoyad}"/>
             <br/>
-            <label for="inputName" style="font-size:18px;">Cinsiyet</label>
+
+            
             <h:selectOneMenu styleClass="custom-select col-lg-12 p-1" value="#{egitmenController.egitmen.egitmen_cinsiyet}" validator="#{egitmenvalidator.validateCinsiyet}">
-                <f:selectItem itemLabel="SEÇİN"></f:selectItem>
+                <f:selectItem itemLabel="Lütfen Cinsiyetinizi Seçiniz"></f:selectItem>
                 <f:selectItem itemLabel="Erkek" itemValue="Erkek"></f:selectItem>
                 <f:selectItem itemLabel="Kadın" itemValue="Kadın"></f:selectItem>
             </h:selectOneMenu>

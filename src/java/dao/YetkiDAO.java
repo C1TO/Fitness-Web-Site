@@ -1,6 +1,5 @@
 package dao;
 
-
 import entity.Uye;
 
 import java.sql.PreparedStatement;

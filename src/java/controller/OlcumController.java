@@ -19,7 +19,7 @@ public class OlcumController implements Serializable {
     private int pageSize = 6;
     private int pageCount;
 
-  public void ileri() {
+    public void ileri() {
         if (this.page == this.getPageCount()) {
             this.page = 1;
         } else {
@@ -34,7 +34,7 @@ public class OlcumController implements Serializable {
         } else {
             this.page--;
         }
-         this.clearForm();
+        this.clearForm();
     }
 
     public void create() {
@@ -47,13 +47,13 @@ public class OlcumController implements Serializable {
         this.getOlcum_dao().delete(this.olcum);
         this.clearForm();
     }
-    
-      public double vkihesap() {
+
+    public double vkihesap() {
         return this.olcum.getKilo() / Math.pow(this.olcum.getBoy(), 2) * 10000; // üyeler değerlerini girdiği an vki hesabı yapması için kullanılan metod
     }
 
     public void update() {
-        this.olcum.setVucut_kitle_indeksi(vkihesap()); 
+        this.olcum.setVucut_kitle_indeksi(vkihesap());
         this.getOlcum_dao().update(this.olcum);
         this.clearForm();
     }
@@ -121,7 +121,5 @@ public class OlcumController implements Serializable {
     public void clearForm() {
         this.olcum = new Olcum();
     }
-
-  
 
 }

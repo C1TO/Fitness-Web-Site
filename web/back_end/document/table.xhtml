@@ -12,21 +12,30 @@
         <div class="row" style="margin-top: 10px;">
             <h:form id="document-table">
                 <h:dataTable styleClass="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%" value="#{documentController.documentList}" var="d">
+                    
                     <h:column>
                         <f:facet name="header">ID</f:facet>
                             #{d.document_id}
                     </h:column>
+                    
                     <h:column>
                         <f:facet name="header">Dosya Uzantısı</f:facet>
                             #{d.filePath}
                     </h:column>
+                    
                     <h:column>
                         <f:facet name="header">Dosya İsmi</f:facet>
                             #{d.fileName}
                     </h:column>
+                    
                     <h:column>
                         <f:facet name="header">Dosya Tipi</f:facet>
                             #{d.fileType}
+                    </h:column>
+                    
+                    <h:column>
+                        <f:facet name="header"></f:facet>
+                        <h:graphicImage width="100"  value="/upload/#{d.fileName}"/>
                     </h:column>
 
                 </h:dataTable>

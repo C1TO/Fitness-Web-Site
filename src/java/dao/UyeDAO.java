@@ -94,7 +94,7 @@ public class UyeDAO extends SuperDAO {
         }
         return ulist;
     }
-    
+
     public List<Uye> findAll() { // bu findall metodu one to many ilişkisideki eklemeler de selectmenubox ın içinde kullanılıyor.Sayfalamada çıkan hatayı önlemek için yazıldı.
         List<Uye> uye_list = new ArrayList();
 
@@ -334,7 +334,7 @@ public class UyeDAO extends SuperDAO {
     public void sifremiunuttum(Uye uye) { // yukarıda ki telarama ve mailarama metodlarında gelen değer doğru ise şifreyi gösterecek metod
         if (uye.getUye_mail().equals(mailarama(uye.getUye_mail())) && uye.getUye_tel().equals(telarama(uye.getUye_tel()))) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(" Şifreniz : " + sifre(uye.getUye_tel())));
-        } 
+        }
     }
 
 }

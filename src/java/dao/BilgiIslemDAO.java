@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BilgiIslemDAO extends SuperDAO {
-//bilgi işlem dao
+
     PreparedStatement pst = null;
     ResultSet rs = null;
 
@@ -39,7 +39,7 @@ public class BilgiIslemDAO extends SuperDAO {
         }
     }
 
-    public List<BilgiIslem> findAll(int page, int pageSize) { 
+    public List<BilgiIslem> findAll(int page, int pageSize) {
         List<BilgiIslem> bilgilist = new ArrayList();
         int start = (page - 1) * pageSize;
 

@@ -64,10 +64,10 @@ public class DocumentDAO extends SuperDAO {
         }
         return dList;
     }
-    
+
     public List<Document> findAll() { // bu findall metodu one to many ilişkisideki eklemeler de selectmenubox ın içinde kullanılıyor.Sayfalamada çıkan hatayı önlemek için yazıldı.
         List<Document> dList = new ArrayList<>();
-       
+
         try {
             pst = this.getConnection().prepareStatement("select*from document ");
 

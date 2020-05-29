@@ -3,7 +3,7 @@ package entity;
 import java.util.Objects;
 
 public class BilgiIslem {
-//bilgi işlem
+
     private int bilgi_id;
     private String baslangic_tarihi;
     private String bitis_tarihi;
@@ -89,10 +89,5 @@ public class BilgiIslem {
     public String toString() {
         return "BilgiIslem{" + "bilgi_id=" + bilgi_id + ", baslangic_tarihi=" + baslangic_tarihi + ", bitis_tarihi=" + bitis_tarihi + ", uye=" + uye + '}';
     }
-    
-    
-    
-
-    
 
 }

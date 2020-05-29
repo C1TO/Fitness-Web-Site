@@ -13,7 +13,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.servlet.http.Part;
 
-
 @Named
 @SessionScoped
 public class DocumentController implements Serializable {
@@ -75,8 +74,8 @@ public class DocumentController implements Serializable {
     public void upload() {
         try (InputStream input = doc.getInputStream()) {
             String fileName = doc.getSubmittedFileName();
-            File f = new File(uploadTo,fileName);
-            Files.copy(input,f.toPath());
+            File f = new File(uploadTo, fileName);
+            Files.copy(input, f.toPath());
 
             document = this.getDocument();
             document.setFilePath(f.getParent());
@@ -112,7 +111,6 @@ public class DocumentController implements Serializable {
         this.bul = bul;
     }
 
-
     public Document getDocument() {
         if (this.document == null) {
             this.document = new Document();
@@ -141,7 +139,6 @@ public class DocumentController implements Serializable {
     public void setFullList(List<Document> fullList) {
         this.fullList = fullList;
     }
-    
 
     public DocumentDAO getDocumentDAO() {
         if (this.documentDAO == null) {

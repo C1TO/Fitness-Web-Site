@@ -27,7 +27,7 @@ public class ProgramListesiController implements Serializable {
     private int pageSize = 6;
     private int pageCount;
 
-   public void ileri() {
+    public void ileri() {
         if (this.page == this.getPageCount()) {
             this.page = 1;
         } else {
@@ -42,7 +42,7 @@ public class ProgramListesiController implements Serializable {
         } else {
             this.page--;
         }
-         this.clearForm();
+        this.clearForm();
     }
 
     public int getPage() {

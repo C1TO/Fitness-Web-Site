@@ -12,7 +12,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-
 @FacesConverter("dosyaConverter")
 public class documentConverter implements Converter {
 
@@ -27,7 +26,7 @@ public class documentConverter implements Converter {
     public String getAsString(FacesContext context, UIComponent component, Object arg2) {
         Document y = (Document) arg2;
         return String.valueOf(y.getDocument_id());
-        
+
     }
 
     public DocumentDAO getDocumentDAO() {

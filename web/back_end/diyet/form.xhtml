@@ -10,15 +10,19 @@
 
     <h:form id="diyet-form" rendered="#{sessionScope.valid_user.admin}" styleClass="table table-striped table-bordered dt-responsive nowrap" class="text-center">
         <div class = "form-group">
-            <h:inputHidden value="#{diyetListesiController.diyetListesi.diyet_id}"/> 
+            
+            <h:inputHidden value="#{diyetListesiController.diyetListesi.diyet_id}"/>
+            
             <div class="col-lg-12 mx-auto mt-2 " >
                 <h3 class="text-info">Diyet Listesi İşlem Formu</h3>
             </div>
             <br/>
+            
             <label for="selectEgitim" style="font-size: 18px;">Eğitim Adı</label>
             <h:selectOneMenu styleClass="custom-select col-lg-12 p-1" id="selectEgitmen" value="#{diyetListesiController.diyetListesi.egitim}" converter="egitimConverter" >
                 <f:selectItems value="#{egitimController.full_list}" var="egitim" itemValue="#{egitim}" itemLabel="#{egitim.egitim_adi}"/>
             </h:selectOneMenu>
+            
             <br/>
             <br/>
             <h:inputText styleClass="form-control" a:placeholder="Yemek Adı" value="#{diyetListesiController.diyetListesi.yemek_isim}"/>

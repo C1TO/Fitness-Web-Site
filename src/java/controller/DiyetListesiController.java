@@ -40,9 +40,8 @@ public class DiyetListesiController implements Serializable {
         } else {
             this.page--;
         }
-         this.clearForm();
+        this.clearForm();
     }
-
 
     public int getPage() {
         return page;

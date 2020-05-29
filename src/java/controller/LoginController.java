@@ -20,7 +20,7 @@ public class LoginController implements Serializable {
         if (this.uye != null) {
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("valid_user", this.uye);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Hoşgeldiniz" + " " + uye.getUye_ad() + " " + uye.getUye_soyad()));
-            return "/temp";
+            return "/back_end/egitim/egitim?faces-redirect=true";
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Hatalı kullanıcı adı veya şifre"));
             return "/index";

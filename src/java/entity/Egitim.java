@@ -66,8 +66,7 @@ public class Egitim {
     }
 
     public Document getDocument() {
-        if(this.document == null)
-        {
+        if (this.document == null) {
             this.document = new Document();
         }
         return document;
@@ -76,8 +75,6 @@ public class Egitim {
     public void setDocument(Document document) {
         this.document = document;
     }
-    
-    
 
     @Override
     public int hashCode() {
